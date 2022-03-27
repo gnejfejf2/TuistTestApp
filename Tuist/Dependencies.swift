@@ -19,5 +19,6 @@ let dependencies = Dependencies(
         .remote(url: "https://github.com/SnapKit/SnapKit.git", requirement: .upToNextMajor(from: "5.0.1")),
         .remote(url: "https://github.com/devxoul/Then", requirement: .upToNextMajor(from: "2.0.0"))
     ]),
+
     platforms: [.iOS]
 )

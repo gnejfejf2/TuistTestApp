@@ -1,0 +1,309 @@
+{
+    "documents": [
+        {
+            "collection": "blog",
+            "datetime": "2021-06-04T12:15:00.000+09:00",
+            "display_sitename": "네이버블로그",
+            "doc_url": "http://blog.naver.com/soojin_2604/222384382216",
+            "height": 280,
+            "image_url": "http://postfiles15.naver.net/MjAyMTA2MDNfNTAg/MDAxNjIyNzMyMzkyMTYy.YGEK3BPJBtSYUWj5blkiY9Srm1UGSKC2FK-gBs6URpsg.LHelo9IyNDQx6mOk1ILusa_UcSIo_ZS8FFjvIKQi8h8g.PNG.soojin_2604/swift.png?type=w773",
+            "thumbnail_url": "https://search4.kakaocdn.net/argon/130x130_85_c/FSSEZrshEog",
+            "width": 500
+        },
+        {
+            "collection": "blog",
+            "datetime": "2015-12-05T13:46:06.000+09:00",
+            "display_sitename": "티스토리",
+            "doc_url": "http://odelian.tistory.com/221",
+            "height": 288,
+            "image_url": "http://t1.daumcdn.net/cfile/tistory/213D113356626BCC09",
+            "thumbnail_url": "https://search4.kakaocdn.net/argon/130x130_85_c/2tmStPiZGMY",
+            "width": 512
+        },
+        {
+            "collection": "news",
+            "datetime": "2022-02-27T11:42:09.000+09:00",
+            "display_sitename": "연합뉴스",
+            "doc_url": "http://v.media.daum.net/v/20220227114209578",
+            "height": 750,
+            "image_url": "https://t1.daumcdn.net/news/202202/27/yonhap/20220227123355145pxyx.jpg",
+            "thumbnail_url": "https://search1.kakaocdn.net/argon/130x130_85_c/6mBkTMV0klh",
+            "width": 428
+        },
+        {
+            "collection": "blog",
+            "datetime": "2020-08-29T22:08:00.000+09:00",
+            "display_sitename": "네이버블로그",
+            "doc_url": "http://blog.naver.com/sso_0022/222074737714",
+            "height": 387,
+            "image_url": "http://postfiles9.naver.net/MjAyMDA4MjlfMjY5/MDAxNTk4NzA2NDM2ODgy.228DwB7YhS6jW58Wt2kWEt3GD38HorhVavyRakliBcMg.kBZuAVOd3R3grLi_CQyjkBx0Ycx56JJTioXYOfyN2PIg.PNG.sso_0022/swift%EB%AC%B8%EB%B2%95%EC%A0%95%EB%A6%AC.png?type=w773",
+            "thumbnail_url": "https://search4.kakaocdn.net/argon/130x130_85_c/1dMWQBicULi",
+            "width": 773
+        },
+        {
+            "collection": "blog",
+            "datetime": "2014-09-11T15:48:00.000+09:00",
+            "display_sitename": "네이버블로그",
+            "doc_url": "http://blog.naver.com/woon32/220118813033",
+            "height": 275,
+            "image_url": "http://postfiles7.naver.net/20140911_6/woon32_1410418069597uQBbo_GIF/swift_semina.gif?type=w3",
+            "thumbnail_url": "https://search3.kakaocdn.net/argon/130x130_85_c/KFPGTnWvpMp",
+            "width": 395
+        },
+        {
+            "collection": "blog",
+            "datetime": "2017-01-23T09:30:02.000+09:00",
+            "display_sitename": "티스토리",
+            "doc_url": "http://yagom.tistory.com/526",
+            "height": 343,
+            "image_url": "http://t1.daumcdn.net/cfile/tistory/230D243958848BC233",
+            "thumbnail_url": "https://search3.kakaocdn.net/argon/130x130_85_c/EIB6ffQq7ht",
+            "width": 610
+        },
+        {
+            "collection": "blog",
+            "datetime": "2016-05-17T17:00:00.000+09:00",
+            "display_sitename": "네이버블로그",
+            "doc_url": "http://blog.naver.com/ciceron_mate/220711179634",
+            "height": 434,
+            "image_url": "http://postfiles2.naver.net/20160516_81/ciceron_mate_1463386494791hlWFB_JPEG/swift.jpg?type=w773",
+            "thumbnail_url": "https://search2.kakaocdn.net/argon/130x130_85_c/IR5sN7PfZ4C",
+            "width": 773
+        },
+        {
+            "collection": "blog",
+            "datetime": "2016-02-11T23:42:00.000+09:00",
+            "display_sitename": "네이버블로그",
+            "doc_url": "http://blog.naver.com/jaemoya/220624254207",
+            "height": 424,
+            "image_url": "http://postfiles16.naver.net/20160211_79/jaemoya_1455201386464puF47_JPEG/swift1.jpg?type=w2",
+            "thumbnail_url": "https://search1.kakaocdn.net/argon/130x130_85_c/GJ1KKUInduU",
+            "width": 743
+        },
+        {
+            "collection": "news",
+            "datetime": "2022-03-03T08:06:06.000+09:00",
+            "display_sitename": "JTBC",
+            "doc_url": "http://v.media.daum.net/v/20220303080606550",
+            "height": 373,
+            "image_url": "https://t1.daumcdn.net/news/202203/03/JTBC/20220303080607443pqtt.jpg",
+            "thumbnail_url": "https://search2.kakaocdn.net/argon/130x130_85_c/5U9pwBZzO83",
+            "width": 559
+        },
+        {
+            "collection": "news",
+            "datetime": "2022-02-27T09:38:35.000+09:00",
+            "display_sitename": "연합뉴스",
+            "doc_url": "http://v.media.daum.net/v/20220227093835114",
+            "height": 750,
+            "image_url": "https://t1.daumcdn.net/news/202202/27/yonhap/20220227094427610bzdt.jpg",
+            "thumbnail_url": "https://search3.kakaocdn.net/argon/130x130_85_c/7WOcMMYMvni",
+            "width": 487
+        },
+        {
+            "collection": "blog",
+            "datetime": "2016-02-15T14:48:00.000+09:00",
+            "display_sitename": "네이버블로그",
+            "doc_url": "http://blog.naver.com/acornzone/220627573435",
+            "height": 451,
+            "image_url": "http://postfiles14.naver.net/20160215_205/acornzone_14555061594824bXql_JPEG/swift.jpg?type=w966",
+            "thumbnail_url": "https://search3.kakaocdn.net/argon/130x130_85_c/5HvAUY0kyiO",
+            "width": 750
+        },
+        {
+            "collection": "blog",
+            "datetime": "2018-01-20T21:27:17.000+09:00",
+            "display_sitename": "티스토리",
+            "doc_url": "http://rolls-it.tistory.com/98",
+            "height": 1030,
+            "image_url": "http://t1.daumcdn.net/cfile/tistory/9967354F5A63327513",
+            "thumbnail_url": "https://search1.kakaocdn.net/argon/130x130_85_c/6l1xOIKFVo2",
+            "width": 900
+        },
+        {
+            "collection": "blog",
+            "datetime": "2018-10-04T15:15:00.000+09:00",
+            "display_sitename": "네이버블로그",
+            "doc_url": "http://blog.naver.com/updatenjobgo/221370871910",
+            "height": 541,
+            "image_url": "http://postfiles5.naver.net/MjAxODEwMDRfMjY2/MDAxNTM4NjMzNDc1MzE3.xrd1-uVJVVxwrp5mA-kVc6t6XVpWzAuiQgMWxZuWcGUg.fEhl0NWIm4M0S7eEttiFr-WOBnjAqFhKVSLtVJyxl1Qg.JPEG.updatenjobgo/swift_05.jpg?type=w966",
+            "thumbnail_url": "https://search2.kakaocdn.net/argon/130x130_85_c/Iffpwl1Ex1t",
+            "width": 966
+        },
+        {
+            "collection": "blog",
+            "datetime": "2015-12-07T12:30:53.000+09:00",
+            "display_sitename": "티스토리",
+            "doc_url": "http://creativeworks.tistory.com/194",
+            "height": 494,
+            "image_url": "http://t1.daumcdn.net/cfile/tistory/2408C13A5664F6D509",
+            "thumbnail_url": "https://search2.kakaocdn.net/argon/130x130_85_c/GpwBeW9Hgn3",
+            "width": 700
+        },
+        {
+            "collection": "blog",
+            "datetime": "2012-07-13T02:13:13.000+09:00",
+            "display_sitename": "티스토리",
+            "doc_url": "http://tendresse.tistory.com/415",
+            "height": 1191,
+            "image_url": "http://t1.daumcdn.net/cfile/tistory/2628CB3356C9607626",
+            "thumbnail_url": "https://search1.kakaocdn.net/argon/130x130_85_c/D8enHLPxdkX",
+            "width": 1400
+        },
+        {
+            "collection": "blog",
+            "datetime": "2018-10-04T15:15:00.000+09:00",
+            "display_sitename": "네이버블로그",
+            "doc_url": "http://blog.naver.com/updatenjobgo/221370871910",
+            "height": 543,
+            "image_url": "http://postfiles9.naver.net/MjAxODEwMDRfNjEg/MDAxNTM4NjMzMzU5NDMy.Di6_5x1Mkqhp6mv0boMfuXsV1VanjMRiyEm_DrDpBCIg._NHdk5PciIrY6WwAqaWy8kkIIapBxE1Hj4h1qgeRx9Ag.JPEG.updatenjobgo/swift_02.jpg?type=w966",
+            "thumbnail_url": "https://search2.kakaocdn.net/argon/130x130_85_c/C0Ii4XoQvUD",
+            "width": 966
+        },
+        {
+            "collection": "blog",
+            "datetime": "2014-06-17T14:10:44.000+09:00",
+            "display_sitename": "티스토리",
+            "doc_url": "http://gooddesign.tistory.com/86",
+            "height": 225,
+            "image_url": "http://t1.daumcdn.net/cfile/tistory/2735DE3B539FCCAD33",
+            "thumbnail_url": "https://search3.kakaocdn.net/argon/130x130_85_c/7tmSq6ghwkd",
+            "width": 150
+        },
+        {
+            "collection": "blog",
+            "datetime": "2015-12-11T21:53:50.000+09:00",
+            "display_sitename": "티스토리",
+            "doc_url": "http://creativeworks.tistory.com/213",
+            "height": 494,
+            "image_url": "http://t1.daumcdn.net/cfile/tistory/27083439566AC6FD0D",
+            "thumbnail_url": "https://search3.kakaocdn.net/argon/130x130_85_c/HPFPejTMLG7",
+            "width": 700
+        },
+        {
+            "collection": "blog",
+            "datetime": "2019-02-15T13:03:10.000+09:00",
+            "display_sitename": "티스토리",
+            "doc_url": "http://namwhis.tistory.com/47",
+            "height": 308,
+            "image_url": "http://t1.daumcdn.net/cfile/tistory/9996CD485C66395F28",
+            "thumbnail_url": "https://search2.kakaocdn.net/argon/130x130_85_c/HkGqWYR4gMD",
+            "width": 443
+        },
+        {
+            "collection": "blog",
+            "datetime": "2017-01-23T11:39:00.000+09:00",
+            "display_sitename": "네이버블로그",
+            "doc_url": "http://blog.naver.com/html5around/220918010741",
+            "height": 403,
+            "image_url": "http://postfiles11.naver.net/MjAxNzAxMjNfMjk2/MDAxNDg1MTM4OTQxNDIz.DU5xmDqpJGWTsfR60lqNQXnz2XJF2QGRUEnRO2L44uAg.jtPe_wlckBKU9dd_CFd5wui_89eetGTsE9oFR3ve34wg.PNG.html5around/swift_download_1.png?type=w966",
+            "thumbnail_url": "https://search3.kakaocdn.net/argon/130x130_85_c/4b8jfaBkjhI",
+            "width": 966
+        },
+        {
+            "collection": "blog",
+            "datetime": "2017-01-23T11:39:00.000+09:00",
+            "display_sitename": "네이버블로그",
+            "doc_url": "http://blog.naver.com/html5around/220918010741",
+            "height": 540,
+            "image_url": "http://postfiles4.naver.net/MjAxNzAxMjNfMjU1/MDAxNDg1MTM4OTUzNDIz.20-aQfxKGpEzBWXdjtYLNTcmvAc-OveGvnMDMMUpI-cg.EvZJMb-MSS_1dCJj_rezlsYtP9MQejJspfx964V8yH4g.JPEG.html5around/swift_download_2.jpg?type=w966",
+            "thumbnail_url": "https://search3.kakaocdn.net/argon/130x130_85_c/9shiHL4sJeP",
+            "width": 763
+        },
+        {
+            "collection": "blog",
+            "datetime": "2022-03-01T09:00:45.000+09:00",
+            "display_sitename": "티스토리",
+            "doc_url": "http://sally1416.tistory.com/33",
+            "height": 461,
+            "image_url": "https://blog.kakaocdn.net/dn/bsnEiW/btruDBYgmBX/WhtyXhYefpJKFkCPlq6EJK/img.jpg",
+            "thumbnail_url": "https://search4.kakaocdn.net/argon/130x130_85_c/76H8okekDhI",
+            "width": 960
+        },
+        {
+            "collection": "blog",
+            "datetime": "2021-12-12T17:45:40.000+09:00",
+            "display_sitename": "티스토리",
+            "doc_url": "http://eunjin3786.tistory.com/458",
+            "height": 578,
+            "image_url": "https://k.kakaocdn.net/dn/vsuj1/btrnBMNmmQR/4zLokCEEdseD5DiHSxc8u1/img.png",
+            "thumbnail_url": "https://search4.kakaocdn.net/argon/130x130_85_c/3CSASx4ili1",
+            "width": 732
+        },
+        {
+            "collection": "blog",
+            "datetime": "2021-11-24T11:12:38.000+09:00",
+            "display_sitename": "티스토리",
+            "doc_url": "http://coder3306.tistory.com/9",
+            "height": 395,
+            "image_url": "https://k.kakaocdn.net/dn/bRloNn/btrlYRuvUIN/tYAfcFtIQWAR3kklhRa5nK/img.png",
+            "thumbnail_url": "https://search1.kakaocdn.net/argon/130x130_85_c/LS1VOOYakoj",
+            "width": 1253
+        },
+        {
+            "collection": "blog",
+            "datetime": "2016-04-22T00:37:00.000+09:00",
+            "display_sitename": "네이버블로그",
+            "doc_url": "http://blog.naver.com/bethmark/220690000202",
+            "height": 282,
+            "image_url": "http://postfiles5.naver.net/20160422_292/bethmark_14612515637192ikyI_PNG/swift-3.png?type=w2",
+            "thumbnail_url": "https://search1.kakaocdn.net/argon/130x130_85_c/JMeC50DPbaL",
+            "width": 500
+        },
+        {
+            "collection": "news",
+            "datetime": "2022-02-27T15:42:02.000+09:00",
+            "display_sitename": "연합뉴스",
+            "doc_url": "http://v.media.daum.net/v/20220227154202071",
+            "height": 664,
+            "image_url": "https://t1.daumcdn.net/news/202202/27/yonhap/20220227154202497vhvo.jpg",
+            "thumbnail_url": "https://search3.kakaocdn.net/argon/130x130_85_c/DFY76qkOc3A",
+            "width": 1024
+        },
+        {
+            "collection": "blog",
+            "datetime": "2017-01-23T11:39:00.000+09:00",
+            "display_sitename": "네이버블로그",
+            "doc_url": "http://blog.naver.com/html5around/220918010741",
+            "height": 286,
+            "image_url": "http://postfiles11.naver.net/MjAxNzAzMDZfMTU4/MDAxNDg4Nzc2MTExNDY0.3t0wrxTQWqevstZzf2OTQsdL7H8RO_czzXLHtff0YV8g.OpogjRzettKcy9ReRI2yk9Qu0t3EUOgH5_MINYpiK3Ig.JPEG.html5around/swift_download_3.jpg?type=w966",
+            "thumbnail_url": "https://search3.kakaocdn.net/argon/130x130_85_c/5OyH98dRQJX",
+            "width": 763
+        },
+        {
+            "collection": "blog",
+            "datetime": "2022-03-02T22:09:58.000+09:00",
+            "display_sitename": "티스토리",
+            "doc_url": "http://kkhland.tistory.com/230",
+            "height": 682,
+            "image_url": "https://k.kakaocdn.net/dn/CP76d/btruXTi0zVp/K2GXJPmtkEV0yE7dOJrWpK/img.jpg",
+            "thumbnail_url": "https://search3.kakaocdn.net/argon/130x130_85_c/4EgjGaDSDBx",
+            "width": 1024
+        },
+        {
+            "collection": "blog",
+            "datetime": "2022-01-18T17:46:07.000+09:00",
+            "display_sitename": "티스토리",
+            "doc_url": "http://kimdee.tistory.com/120",
+            "height": 580,
+            "image_url": "https://k.kakaocdn.net/dn/cXmy5i/btrq4xyTvGW/zBfJkKBdFCf3w07EPSZZO1/img.png",
+            "thumbnail_url": "https://search2.kakaocdn.net/argon/130x130_85_c/5lIV86dmMgj",
+            "width": 578
+        },
+        {
+            "collection": "etc",
+            "datetime": "2022-01-04T16:37:29.000+09:00",
+            "display_sitename": "",
+            "doc_url": "https://www.tweaktown.com/news/83753/acer-swift-2022-laptop-the-first-with-intels-new-arc-alchemist-gpu/index.html",
+            "height": 411,
+            "image_url": "https://static.tweaktown.com/news/8/3/83753_04_acer-swift-2022-laptop-the-first-with-intels-new-arc-alchemist-gpu.jpg",
+            "thumbnail_url": "https://search3.kakaocdn.net/argon/130x130_85_c/4lVDRCkI9OM",
+            "width": 620
+        }
+    ],
+    "meta": {
+        "is_end": false,
+        "pageable_count": 3946,
+        "total_count": 284689
+    }
+}

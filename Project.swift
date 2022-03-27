@@ -39,12 +39,25 @@ let project = Project(
                 .external(name: "SnapKit"),
                 .external(name: "Then")
             ]
-        )
+        ),
+        Target(name: "TuistTestAppTests",
+                    platform: .iOS,
+                    product: .unitTests,
+                    bundleId: "com.jyk.TuistTestAppTests",
+                    infoPlist: .default,
+                    sources: ["Targets/TuistTest/Sources/**"],
+                    dependencies: [
+//                     // 유닛 테스트의 의존성은 Framework, Library 또는 App으로 설정해야 함.
+                     .target(name: "TuistTestApp"),
+                     .external(name: "RxSwift"),
+                     .external(name: "RxTest")
+                     
+                    ]),
     ],
     schemes: [
         .init(name: "TuistTestApp-Debug", shared: true, hidden: false,
               buildAction: .buildAction(targets: ["TuistTestApp"]),
-              testAction: .targets(["BrandiApp"] , configuration: "Debug"),
+              testAction: .targets(["TuistTestAppTests"] , configuration: "Debug"),
               runAction: .runAction(configuration: "Debug"),
               archiveAction: .archiveAction(configuration: "Debug"),
               profileAction: .profileAction(configuration: "Debug"),
@@ -52,7 +65,7 @@ let project = Project(
              ),
         .init(name: "TuistTestApp-Release", shared: true, hidden: false,
               buildAction: .buildAction(targets: ["TuistTestApp"]),
-              testAction: .targets(["BrandiApp"] , configuration: "Release"),
+              testAction: .targets(["TuistTestAppTests"] , configuration: "Release"),
               runAction: .runAction(configuration: "Release"),
               archiveAction: .archiveAction(configuration: "Release"),
               profileAction: .profileAction(configuration: "Release"),
