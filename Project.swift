@@ -17,7 +17,9 @@ let project = Project(
     organizationName: "JYKang",
     settings: .settings(configurations: [
         .debug(name: "Debug"),
-        .release(name: "Release")
+        .debug(name: "Dev"),
+        .release(name: "Release"),
+        .release(name: "Prod")
     ]),
     targets: [
         Target(
@@ -37,39 +39,40 @@ let project = Project(
                 .external(name: "RxMoya"),
                 .external(name: "Moya"),
                 .external(name: "SnapKit"),
-                .external(name: "Then")
+                .external(name: "Then"),
+                .external(name: "Swinject")
             ]
         ),
         Target(name: "TuistTestAppTests",
                     platform: .iOS,
                     product: .unitTests,
                     bundleId: "com.jyk.TuistTestAppTests",
+                    deploymentTarget : .iOS(targetVersion: "13.0.0", devices: .iphone),
                     infoPlist: .default,
                     sources: ["Targets/TuistTest/Sources/**"],
                     dependencies: [
 //                     // 유닛 테스트의 의존성은 Framework, Library 또는 App으로 설정해야 함.
                      .target(name: "TuistTestApp"),
                      .external(name: "RxSwift"),
-                     .external(name: "RxTest")
-                     
+                     .external(name: "RxTest"),
                     ]),
     ],
     schemes: [
-        .init(name: "TuistTestApp-Debug", shared: true, hidden: false,
+        .init(name: "TuistTestApp-Dev", shared: true, hidden: false,
               buildAction: .buildAction(targets: ["TuistTestApp"]),
-              testAction: .targets(["TuistTestAppTests"] , configuration: "Debug"),
-              runAction: .runAction(configuration: "Debug"),
-              archiveAction: .archiveAction(configuration: "Debug"),
-              profileAction: .profileAction(configuration: "Debug"),
-              analyzeAction: .analyzeAction(configuration: "Debug")
+              testAction: .targets(["TuistTestAppTests"] , configuration: "Dev"),
+              runAction: .runAction(configuration: "Dev"),
+              archiveAction: .archiveAction(configuration: "Dev"),
+              profileAction: .profileAction(configuration: "Dev"),
+              analyzeAction: .analyzeAction(configuration: "Dev")
              ),
-        .init(name: "TuistTestApp-Release", shared: true, hidden: false,
+        .init(name: "TuistTestApp-Prod", shared: true, hidden: false,
               buildAction: .buildAction(targets: ["TuistTestApp"]),
-              testAction: .targets(["TuistTestAppTests"] , configuration: "Release"),
-              runAction: .runAction(configuration: "Release"),
-              archiveAction: .archiveAction(configuration: "Release"),
-              profileAction: .profileAction(configuration: "Release"),
-              analyzeAction: .analyzeAction(configuration: "Release")
+              testAction: .targets(["TuistTestAppTests"] , configuration: "Prod"),
+              runAction: .runAction(configuration: "Prod"),
+              archiveAction: .archiveAction(configuration: "Prod"),
+              profileAction: .profileAction(configuration: "Prod"),
+              analyzeAction: .analyzeAction(configuration: "Prod")
              )
     ]
    
