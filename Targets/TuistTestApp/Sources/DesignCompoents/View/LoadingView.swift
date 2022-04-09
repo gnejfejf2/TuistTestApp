@@ -5,49 +5,46 @@
 //  Created by 강지윤 on 2022/03/19.
 //
 import UIKit
-import Then
-import SnapKit
 
 
-class LoadingView : UIView {
-    var activityIndicator = UIActivityIndicatorView()
-    
-    override init(frame: CGRect) {
-        super.init(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
-        uiSetting()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        uiSetting()
-    }
-    
-    
-    func uiSetting(){
-        self.backgroundColor = .black.withAlphaComponent(0.3)
-        self.addSubview(activityIndicator)
-        
-        activityIndicator.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+public class LoadingView {
+
+    internal static var spinner: UIActivityIndicatorView?
+
+    public static func show() {
+        DispatchQueue.main.async {
+            NotificationCenter.default.addObserver(self, selector: #selector(update), name: UIDevice.orientationDidChangeNotification, object: nil)
+            if spinner == nil, let window = UIApplication.shared.keyWindow {
+                let frame = UIScreen.main.bounds
+                let spinner = UIActivityIndicatorView(frame: frame)
+                spinner.backgroundColor = UIColor.black.withAlphaComponent(0.2)
+                spinner.style = .whiteLarge
+                window.addSubview(spinner)
+
+                spinner.startAnimating()
+                self.spinner = spinner
+            }
         }
-        
     }
- 
-    
-    func loadingViewSetting(loading: Bool) {
-        if(loading){
-            isHidden = false
-            activityIndicator.startAnimating()
-        }else{
-            activityIndicator.stopAnimating()
-            isHidden = true
+
+    public static func hide() {
+        DispatchQueue.main.async {
+            guard let spinner = spinner else { return }
+            spinner.stopAnimating()
+            spinner.removeFromSuperview()
+            self.spinner = nil
+        }
+    }
+
+    @objc public static func update() {
+        DispatchQueue.main.async {
+            if spinner != nil {
+                hide()
+                show()
+            }
         }
     }
 }
-
-
-
-
 
 
 

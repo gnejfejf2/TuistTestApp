@@ -16,7 +16,7 @@ import RxGesture
 import RxDataSources
 
 
-class MainViewController: SuperViewControllerSetting<MainViewModel> {
+class MainViewController: SuperViewControllerSetting<MainViewModel> , AlertProtocol{
     
     //UI
     lazy var searchBar = DoneSearchBar().then{
@@ -64,8 +64,7 @@ class MainViewController: SuperViewControllerSetting<MainViewModel> {
         $0.isHidden = true
     }
     
-    var loadingView = LoadingView()
-    
+   
     var typeSettingSheetView = SpotBottomSheetView()
     
     
@@ -90,7 +89,6 @@ class MainViewController: SuperViewControllerSetting<MainViewModel> {
         view.addSubview(searchImageCollectionView)
         view.addSubview(emptySearchView)
         view.addSubview(typeSettingSheetView)
-        view.addSubview(loadingView)
         
         searchBar.snp.makeConstraints { make in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -109,9 +107,6 @@ class MainViewController: SuperViewControllerSetting<MainViewModel> {
             make.edges.equalToSuperview()
         }
         
-        loadingView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
     }
     
     override func uiSetting() {
@@ -192,10 +187,9 @@ class MainViewController: SuperViewControllerSetting<MainViewModel> {
         output.outputError
             .drive(onNext: { [ weak self] value in
                 guard let self = self else { return }
-                let alert = UIAlertController(title: "오류", message: value.localizedDescription , preferredStyle: .alert)
-                let success = UIAlertAction(title: "확인", style: .default)
-                alert.addAction(success)
-                self.present(alert, animated: true, completion: nil)
+                
+                self.showAlert(title: "오류", message: value.localizedDescription , preferredStyle: .alert )
+                
             })
             .disposed(by: disposeBag)
 
@@ -214,9 +208,12 @@ class MainViewController: SuperViewControllerSetting<MainViewModel> {
             .disposed(by: disposeBag)
         
         output.outputActivity
-            .drive{ [weak self] loading in
-                guard let self = self else { return }
-                self.loadingView.loadingViewSetting(loading: loading)
+            .drive{ loading in
+                if(loading){
+                    LoadingView.show()
+                }else{
+                    LoadingView.hide()
+                }
             }
            .disposed(by: disposeBag)
         
