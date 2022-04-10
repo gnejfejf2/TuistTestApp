@@ -8,6 +8,17 @@ protocol Coordinator: AnyObject {
     func removeChildCoordinators()
 }
 
+protocol ChildCoordinator : AnyObject {
+    associatedtype Builder
+    associatedtype ViewModelType
+    var baseCoordinator : Coordinator { get }
+    
+    func start()
+    
+    func makeViewModel(builder : Builder) -> ViewModelType
+}
+
+
 class BaseCoordinator: Coordinator {
     var navigationController : UINavigationController
     var childCoordinators = [Coordinator]()
