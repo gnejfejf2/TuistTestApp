@@ -5,7 +5,6 @@
 //  Created by 강지윤 on 2022/03/17.
 //
 
-import Foundation
 import UIKit
 import Then
 import SnapKit
@@ -17,6 +16,9 @@ import RxDataSources
 
 
 class MainViewController: SuperViewControllerSetting<MainViewModel> , AlertProtocol{
+    
+//    var testClass : TestClass = TestClass()
+    
     
     //UI
     lazy var searchBar = DoneSearchBar().then{

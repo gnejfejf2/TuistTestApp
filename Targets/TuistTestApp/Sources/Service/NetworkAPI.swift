@@ -2,6 +2,7 @@ import Alamofire
 import Moya
 import Foundation
 
+
 enum NetworkAPI{
     
     case search(parmas : ImageSearchRequestModel)
@@ -59,7 +60,7 @@ extension NetworkAPI : TargetType {
     
     
     func stubbedResponse(_ filename: String) -> Data! {
-        let bundlePath = Bundle.main.path(forResource: "Json", ofType: "bundle")
+        let bundlePath = Bundle.module.path(forResource: "Json", ofType: "bundle")
         let bundle = Bundle(path: bundlePath!)
         let path = bundle?.path(forResource: filename, ofType: "json")
         return (try? Data(contentsOf: URL(fileURLWithPath: path!)))
@@ -69,5 +70,3 @@ extension NetworkAPI : TargetType {
     
     
 }
-
-

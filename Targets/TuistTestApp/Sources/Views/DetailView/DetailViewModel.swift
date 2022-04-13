@@ -9,7 +9,6 @@ import RxSwift
 import RxCocoa
 import RxRelay
 import RxDataSources
-
 class DetailViewModel : ViewModelBuilderProtocol {
    
     

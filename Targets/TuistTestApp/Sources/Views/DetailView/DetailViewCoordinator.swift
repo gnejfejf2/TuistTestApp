@@ -6,7 +6,6 @@
 //
 
 import Foundation
-
 class DetailViewCoordinator : BaseCoordinator {
  
     var imageSearchModel : ImageSearchModel?

@@ -7,6 +7,8 @@
 
 import Foundation
 import RxSwift
+
+
 protocol SearchDataProtocol {
     func getImageSearchModels(param : ImageSearchRequestModel , networkAPI : NetworkServiceProtocol) -> Single<ImageSearchResponseModel>
 }

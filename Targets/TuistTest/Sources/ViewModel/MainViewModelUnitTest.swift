@@ -8,7 +8,6 @@
 import XCTest
 import RxSwift
 import RxCocoa
-import Moya
 import RxTest
 
 @testable import TuistTestApp

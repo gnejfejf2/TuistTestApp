@@ -1,7 +1,6 @@
 import Foundation
 import UIKit
 
-
 protocol MainViewCoorinatorProtocol {
     func openDetailView(_ imageSearchModel : ImageSearchModel)
 }
