@@ -36,7 +36,7 @@ let project = Project(
                 .external(name: "SnapKit"),
                 .external(name: "Then"),
                 .external(name: "Swinject"),
-                .target(name: "NetworkCenterModule")
+                .target(name: "NetworkPlatform")
             ]
         ),
         Target(name: "TuistTestAppTests",
@@ -52,20 +52,33 @@ let project = Project(
                 .external(name: "RxSwift"),
                 .external(name: "RxTest"),
                ]),
-        
+       
         Target(
-            name: "NetworkCenterModule",
+            name: "NetworkPlatform",
             platform: .iOS,
             product: .framework,
-            bundleId : "com.jyk.NetworkServiceCenter",
+            bundleId : "com.jyk.NetworkPlatform",
             deploymentTarget : .iOS(targetVersion: "13.0.0", devices: .iphone),
             infoPlist : .default,
-            sources: ["Targets/NetworkCenterModule/Sources/**"],
+            sources: ["Targets/NetworkPlatform/Sources/**"],
             dependencies: [
                 .external(name: "Moya"),
-                .external(name: "RxMoya")
+                .external(name: "RxMoya"),
+                .target(name: "Domain")
             ]
-        )
+        ),
+        Target(
+            name: "Domain",
+            platform: .iOS,
+            product: .framework,
+            bundleId : "com.jyk.Domain",
+            deploymentTarget : .iOS(targetVersion: "13.0.0", devices: .iphone),
+            infoPlist : .default,
+            sources: ["Targets/Domain/Sources/**"],
+            dependencies: [
+                .external(name: "RxSwift")
+            ]
+        ),
 //        ,
 //        Target(name: "NetworkServiceTests",
 //               platform: .iOS,

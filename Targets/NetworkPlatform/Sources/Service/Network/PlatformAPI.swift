@@ -1,16 +1,22 @@
-import Alamofire
+//
+//  PlatformAPI.swift
+//  Module
+//
+//  Created by 강지윤 on 2022/04/13.
+//  Copyright © 2022 JYKang. All rights reserved.
+//
+
 import Moya
 import Foundation
 
-
-enum NetworkAPI{
+enum PlatformAPI{
     
     case search(parmas : ImageSearchRequestModel)
     
 }
 
 
-extension NetworkAPI : TargetType {
+extension PlatformAPI : TargetType {
     //BaseURL
     var baseURL: URL {
         switch self {
@@ -60,7 +66,7 @@ extension NetworkAPI : TargetType {
     
     
     func stubbedResponse(_ filename: String) -> Data! {
-        let bundlePath = Bundle.module.path(forResource: "Json", ofType: "bundle")
+        let bundlePath = Bundle.main.path(forResource: "Json", ofType: "bundle")
         let bundle = Bundle(path: bundlePath!)
         let path = bundle?.path(forResource: filename, ofType: "json")
         return (try? Data(contentsOf: URL(fileURLWithPath: path!)))
