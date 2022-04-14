@@ -9,6 +9,8 @@ import UIKit
 import SnapKit
 import Then
 
+
+import Domain
 import Kingfisher
 
 class ImageCollectionViewCell: UICollectionViewCell, CellSettingProtocl {

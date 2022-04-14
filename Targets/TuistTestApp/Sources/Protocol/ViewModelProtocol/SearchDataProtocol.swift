@@ -7,7 +7,7 @@
 
 import Foundation
 import RxSwift
-
+import NetworkPlatform
 
 protocol SearchDataProtocol {
     func getImageSearchModels(param : ImageSearchRequestModel , networkAPI : NetworkServiceProtocol) -> Single<ImageSearchResponseModel>
@@ -15,10 +15,10 @@ protocol SearchDataProtocol {
 
 
 
-extension SearchDataProtocol {
-    func getImageSearchModels(param : ImageSearchRequestModel , networkAPI : NetworkServiceProtocol) -> Single<ImageSearchResponseModel> {
-        networkAPI.request(type: ImageSearchResponseModel.self, .search(parmas: param))
-//            .map{ $0.documents }
-    }
-    
-}
+//extension SearchDataProtocol {
+//    func getImageSearchModels(param : ImageSearchRequestModel , networkAPI : NetworkServiceProtocol) -> Single<ImageSearchResponseModel> {
+//        networkAPI.request(type: ImageSearchResponseModel.self, .search(parmas: param))
+////            .map{ $0.documents }
+//    }
+//    
+//}

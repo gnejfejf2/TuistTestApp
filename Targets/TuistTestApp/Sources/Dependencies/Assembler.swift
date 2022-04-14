@@ -12,6 +12,8 @@ extension Assembler {
     static let shared: Assembler = {
         let assembler = Assembler(
             [
+                
+                UseCaseAssembly(),
                 //위에있는 아이템들이 좀 더 로우 레벨임
                 CoordinatorAssembly()
                 

@@ -10,8 +10,9 @@ import Foundation
 import Moya
 import RxMoya
 import RxSwift
+import Domain
 
-protocol NetworkServiceProtocol {
+public protocol NetworkServiceProtocol {
     
     //네트워크 프로바이더
     var provider : MoyaProvider<PlatformAPI> { get }
@@ -21,12 +22,12 @@ protocol NetworkServiceProtocol {
 
 }
 
-final class NetworkingAPI: NetworkServiceProtocol {
-    static let shared : NetworkingAPI = NetworkingAPI()
+public final class NetworkingAPI: NetworkServiceProtocol {
+    static public let shared : NetworkingAPI = NetworkingAPI()
     
     
     
-    let provider: MoyaProvider<PlatformAPI>
+    public let provider: MoyaProvider<PlatformAPI>
     
     //provider 객체 삽입
     init(provider : MoyaProvider<PlatformAPI> = MoyaProvider<PlatformAPI>()) {
@@ -35,7 +36,7 @@ final class NetworkingAPI: NetworkServiceProtocol {
    
   
     //데이터통신코드
-    func request<T: Decodable>(type : T.Type , _ api: PlatformAPI) -> Single<T> {
+    public func request<T: Decodable>(type : T.Type , _ api: PlatformAPI) -> Single<T> {
         return provider.rx
             .request(api)
             .filterSuccessfulStatusCodes()
@@ -45,7 +46,7 @@ final class NetworkingAPI: NetworkServiceProtocol {
     
     //데이터통신코드
     //따로 데이터변환이 필요하지않고 StatusCode로 값을 결과를 구분할 경우 사용 ex delete , add 등
-    func requestSimple(_ api: PlatformAPI) -> Single<Response> {
+    public func requestSimple(_ api: PlatformAPI) -> Single<Response> {
         return provider.rx
             .request(api)
             .filterSuccessfulStatusCodes()

@@ -36,6 +36,8 @@ let project = Project(
                 .external(name: "SnapKit"),
                 .external(name: "Then"),
                 .external(name: "Swinject"),
+//                .external(name: "Moya"),
+//                .external(name: "RxMoya"),
                 .target(name: "NetworkPlatform")
             ]
         ),

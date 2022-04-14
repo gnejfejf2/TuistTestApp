@@ -10,6 +10,7 @@ import SnapKit
 import Then
 import Kingfisher
 
+import Domain
 class ImageScrollView: UIScrollView , ComponentSettingProtocol{
     var imageZoomView = UIImageView()
 

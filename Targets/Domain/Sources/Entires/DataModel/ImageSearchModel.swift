@@ -4,18 +4,20 @@
 //
 //  Created by 강지윤 on 2022/03/17.
 //
+import RxDataSources
+import Foundation
 
+public typealias ImageSearchModels = [ImageSearchModel]
 
-typealias ImageSearchModels = [ImageSearchModel]
-
-struct ImageSearchModel: Codable , Equatable  {
-    typealias Identity = String
+public struct ImageSearchModel: Codable , Equatable , IdentifiableType  {
+    public typealias Identity = String
     
+    public var identity : Identity = UUID().uuidString
     let collection, datetime, displaySitename: String
     let docURL: String
     let height: Int
-    let imageURL: String
-    let thumbnailURL: String
+    public let imageURL: String
+    public let thumbnailURL: String
     let width: Int
 
     enum CodingKeys: String, CodingKey {
@@ -28,7 +30,7 @@ struct ImageSearchModel: Codable , Equatable  {
         case width
     }
     
-    func returnDescription() -> String{
+    public func returnDescription() -> String{
         
         if(self.displaySitename == "" && self.datetime == ""){
             return ""

@@ -6,6 +6,7 @@
 //
 
 import RxDataSources
+import Domain
 
 struct ImageSearchSectionModel {
     let name : String

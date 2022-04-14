@@ -6,7 +6,7 @@
 //
 
 // MARK: - Meta
-struct PagingAbleModel: Codable {
+public struct PagingAbleModel: Codable {
     let isEnd: Bool
     let pageableCount, totalCount: Int
 

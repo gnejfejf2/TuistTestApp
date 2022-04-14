@@ -1,15 +1,26 @@
-import Foundation
 import UIKit
+import NetworkPlatform
 
+
+
+import Domain
 protocol MainViewCoorinatorProtocol {
     func openDetailView(_ imageSearchModel : ImageSearchModel)
 }
 
 
-class MainViewCoordinator : BaseCoordinator , MainViewCoorinatorProtocol {
+class MainViewCoordinator : Coordinator , MainViewCoorinatorProtocol {
+    let navigationController: UINavigationController
+    
+    
+    init(navigationController : UINavigationController){
+        self.navigationController = navigationController
+    }
+    
  
-    override func start() {
-        let viewModel = MainViewModel(builder: .init(coordinator: self))
+    func start() {
+
+        let viewModel = MainViewModel(imageSearchUseCase: ImageSearchUseCase(networkAPI : NetworkingAPI.shared), builder: .init(coordinator: self))
         let viewController = MainViewController(viewModel: viewModel)
        
         navigationController.pushViewController(viewController, animated: true)
@@ -18,9 +29,9 @@ class MainViewCoordinator : BaseCoordinator , MainViewCoorinatorProtocol {
     
     
     func openDetailView(_ imageSearchModel : ImageSearchModel){
-        let coordinator = DetailViewCoordinator(navigationController: navigationController)
-        coordinator.imageSearchModel = imageSearchModel
-        coordinator.start()
+//        let coordinator = DetailViewCoordinator(navigationController : navigationController)
+//        coordinator.imageSearchModel = imageSearchModel
+//        coordinator.start()
     }
     
 }

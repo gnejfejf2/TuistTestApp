@@ -15,6 +15,7 @@ import RxGesture
 import RxDataSources
 
 
+import Domain
 class MainViewController: SuperViewControllerSetting<MainViewModel> , AlertProtocol{
     
 //    var testClass : TestClass = TestClass()
@@ -81,7 +82,7 @@ class MainViewController: SuperViewControllerSetting<MainViewModel> , AlertProto
     
     
     //Other
-    private let sortTypeAction = PublishSubject<ImageSearchRequestModel.SortType>()
+    private let sortTypeAction = PublishSubject<SortType>()
     
     var sectionHeaderTypeChangeDelegate : SectionHeaderTypeChangeDelegate?
     

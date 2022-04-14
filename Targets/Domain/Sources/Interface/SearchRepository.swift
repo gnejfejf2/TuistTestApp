@@ -9,6 +9,7 @@
 import Foundation
 import RxSwift
 
-protocol SearchRepository {
-    func getImageSearchModels(param : ImageSearchRequestModel) -> Single<ImageSearchResponseModel>
+public protocol ImageSearchInterface {
+    func imageSearch(query : String , sortType : SortType , page : Int , size : Int) -> Single<ImageSearchModels>
 }
+
