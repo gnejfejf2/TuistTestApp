@@ -12,9 +12,10 @@ import UIKit
 import NetworkPlatform
 
 class UseCaseAssembly : Assembly {
+   
     func assemble(container: Container) {
-        container.register(ImageSearchUseCase.self) { (r , networkService : NetworkServiceProtocol) in
-            let imageSearchUseCase : ImageSearchUseCase = ImageSearchUseCase(networkAPI: networkService)
+        container.register(ImageSearchUseCase.self) { (r) in
+            let imageSearchUseCase : ImageSearchUseCase = r.resolve(UseCaseProvider.self)!.makeImageSearchUseCase()
             return imageSearchUseCase
         }
     }

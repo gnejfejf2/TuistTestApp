@@ -27,7 +27,7 @@ public final class NetworkingAPI: NetworkServiceProtocol {
     
     
     
-    public let provider: MoyaProvider<PlatformAPI>
+    public let provider : MoyaProvider<PlatformAPI>
     
     //provider 객체 삽입
     init(provider : MoyaProvider<PlatformAPI> = MoyaProvider<PlatformAPI>()) {

@@ -7,8 +7,8 @@
 
 // MARK: - Meta
 public struct PagingAbleModel: Codable {
-    let isEnd: Bool
-    let pageableCount, totalCount: Int
+    public let isEnd: Bool
+    public let pageableCount, totalCount: Int
 
     enum CodingKeys: String, CodingKey {
         case isEnd = "is_end"

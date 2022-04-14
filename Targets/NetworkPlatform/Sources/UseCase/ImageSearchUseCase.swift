@@ -15,17 +15,18 @@ public final class ImageSearchUseCase : ImageSearchInterface{
    
     
     
-    private let networkAPI : NetworkServiceProtocol
+    private let networkAPI : ImageSearchNetwork
     
-    public init(networkAPI : NetworkServiceProtocol){
+    public init(networkAPI : ImageSearchNetwork){
         self.networkAPI = networkAPI
     }
     
-    public func imageSearch(query : String , sortType : SortType , page : Int , size : Int) -> Single<ImageSearchModels> {
-        let param : ImageSearchRequestModel = ImageSearchRequestModel(query: query, sort: sortType, page: page, size: size)
+    public func imageSearch(query : String , sortType : SortType , page : Int , size : Int) -> Observable<ImageSearchModels> {
+        let parameters : ImageSearchRequestModel = ImageSearchRequestModel(query: query, sort: sortType, page: page, size: size)
         
-        return networkAPI.request(type: ImageSearchResponseModel.self, .search(parmas: param))
+        return networkAPI.fetchImageSearchResponse(parameters : parameters)
                 .map{ $0.documents }
+        
     }
    
 }

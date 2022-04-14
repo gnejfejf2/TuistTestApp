@@ -66,6 +66,9 @@ let project = Project(
             dependencies: [
                 .external(name: "Moya"),
                 .external(name: "RxMoya"),
+                .external(name: "RxAlamofire"),
+                .external(name: "RxSwift"),
+                .external(name: "Alamofire"),
                 .target(name: "Domain")
             ]
         ),
@@ -78,7 +81,8 @@ let project = Project(
             infoPlist : .default,
             sources: ["Targets/Domain/Sources/**"],
             dependencies: [
-                .external(name: "RxSwift")
+                .external(name: "RxSwift"),
+                .external(name: "RxDataSources")
             ]
         ),
 //        ,

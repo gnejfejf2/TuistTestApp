@@ -1,9 +1,7 @@
 import UIKit
-import NetworkPlatform
-
-
-
+import Swinject
 import Domain
+
 protocol MainViewCoorinatorProtocol {
     func openDetailView(_ imageSearchModel : ImageSearchModel)
 }
@@ -20,7 +18,7 @@ class MainViewCoordinator : Coordinator , MainViewCoorinatorProtocol {
  
     func start() {
 
-        let viewModel = MainViewModel(imageSearchUseCase: ImageSearchUseCase(networkAPI : NetworkingAPI.shared), builder: .init(coordinator: self))
+        let viewModel = Assembler.shared.resolver.resolve(MainViewModel.self , argument : self)!
         let viewController = MainViewController(viewModel: viewModel)
        
         navigationController.pushViewController(viewController, animated: true)

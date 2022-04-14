@@ -4,15 +4,14 @@
 //
 //  Created by 강지윤 on 2022/03/17.
 //
-import RxDataSources
+//import RxDataSources
 import Foundation
+
 
 public typealias ImageSearchModels = [ImageSearchModel]
 
-public struct ImageSearchModel: Codable , Equatable , IdentifiableType  {
-    public typealias Identity = String
+public struct ImageSearchModel: Codable , Equatable   {
     
-    public var identity : Identity = UUID().uuidString
     let collection, datetime, displaySitename: String
     let docURL: String
     let height: Int

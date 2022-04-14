@@ -9,11 +9,15 @@
 import Foundation
 import Swinject
 import NetworkPlatform
+import UIKit
 
 class ViewModelAssembler : Assembly {
     func assemble(container: Container) {
-        container.register(MainViewModel.self) { (r , imageSearchUseCase : ImageSearchUseCase) in
-            let mainViewModel : MainViewModel = MainViewModel(imageSearchUseCase: imageSearchUseCase, builder: .init(coordinator: r.resolve(MainViewCoordinator.self)!))
+        container.register(MainViewModel.self) { (r , coordinator : MainViewCoordinator) in
+            
+            let imageSearchUseCase : ImageSearchUseCase = r.resolve(ImageSearchUseCase.self)!
+            
+            let mainViewModel : MainViewModel = MainViewModel(imageSearchUseCase: imageSearchUseCase, builder: .init(coordinator: coordinator))
             return mainViewModel
         }
     }
