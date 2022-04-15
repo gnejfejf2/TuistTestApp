@@ -11,6 +11,8 @@ import Then
 import RxSwift
 import SnapKit
 
+
+import Domain
 class SortTypeStackView : UIStackView , ComponentSettingProtocol {
     
     lazy var itemStackView = UIStackView().then{
@@ -41,7 +43,7 @@ class SortTypeStackView : UIStackView , ComponentSettingProtocol {
         }
     }
     
-    var item : ImageSearchRequestModel.SortType
+    var item : SortType
     
     override init(frame: CGRect) {
         self.item = .recency
@@ -55,7 +57,7 @@ class SortTypeStackView : UIStackView , ComponentSettingProtocol {
         super.init(coder: aDecoder)
         uiSetting()
     }
-    convenience init(item: ImageSearchRequestModel.SortType) {
+    convenience init(item: SortType) {
         self.init(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         self.item = item
     }

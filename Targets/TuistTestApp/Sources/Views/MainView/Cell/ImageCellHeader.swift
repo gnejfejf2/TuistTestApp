@@ -9,19 +9,20 @@ import UIKit
 import SnapKit
 import Then
 
-
-protocol SectionHeaderTypeChangeDelegate {
-    func sortTypeAction(type : ImageSearchRequestModel.SortType)
+import Domain
+protocol SectionHeaderTypeChangeDelegate : AnyObject{
+    func sortTypeAction(type : SortType)
 }
 
 class ImageCellHeader: UICollectionReusableView , SectionHeaderTypeChangeDelegate{
   
     static var id: String { NSStringFromClass(Self.self).components(separatedBy: ".").last ?? "" }
     
+    var headerClickAction : (()->())? = nil
    
     //UI
     let sortTypeButton = UIButton().then{
-        $0.setTitle(ImageSearchRequestModel.SortType.accuracy.rawValue, for: .normal)
+        $0.setTitle(SortType.accuracy.rawValue, for: .normal)
         $0.setImage(UIImage(systemName: "arrow.up.arrow.down"), for: .normal)
         $0.tintColor = .primaryColor
         $0.setTitleColor(.primaryColor, for: .normal)
@@ -51,12 +52,12 @@ class ImageCellHeader: UICollectionReusableView , SectionHeaderTypeChangeDelegat
     }
  
     @objc func clickAction(){
-        
+        headerClickAction?()
     }
 }
 
 extension ImageCellHeader{
-    func sortTypeAction(type: ImageSearchRequestModel.SortType) {
+    func sortTypeAction(type: SortType) {
         if(type == .accuracy){
             sortTypeButton.setTitle("정확도순", for: .normal)
         }else{

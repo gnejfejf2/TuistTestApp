@@ -6,14 +6,10 @@
 //
 
 import Foundation
+import Domain
 
-struct ImageSearchRequestModel : Encodable{
-    enum SortType : String , Encodable {
-        ///정확성
-        case accuracy = "accuracy"
-        ///최신순
-        case recency = "recency"
-    }
+public struct ImageSearchRequestModel : Encodable{
+    
     ///검색어
     var query : String
     ///정렬기준

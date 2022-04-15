@@ -1,16 +1,24 @@
-import Foundation
 import UIKit
-
+import Swinject
+import Domain
 
 protocol MainViewCoorinatorProtocol {
     func openDetailView(_ imageSearchModel : ImageSearchModel)
 }
 
 
-class MainViewCoordinator : BaseCoordinator , MainViewCoorinatorProtocol {
+class MainViewCoordinator : Coordinator , MainViewCoorinatorProtocol {
+    let navigationController: UINavigationController
+    
+    
+    init(navigationController : UINavigationController){
+        self.navigationController = navigationController
+    }
+    
  
-    override func start() {
-        let viewModel = MainViewModel(builder: .init(coordinator: self))
+    func start() {
+
+        let viewModel = Assembler.shared.resolver.resolve(MainViewModel.self , argument : self)!
         let viewController = MainViewController(viewModel: viewModel)
        
         navigationController.pushViewController(viewController, animated: true)
@@ -19,9 +27,9 @@ class MainViewCoordinator : BaseCoordinator , MainViewCoorinatorProtocol {
     
     
     func openDetailView(_ imageSearchModel : ImageSearchModel){
-        let coordinator = DetailViewCoordinator(navigationController: navigationController)
-        coordinator.imageSearchModel = imageSearchModel
-        coordinator.start()
+//        let coordinator = DetailViewCoordinator(navigationController : navigationController)
+//        coordinator.imageSearchModel = imageSearchModel
+//        coordinator.start()
     }
     
 }

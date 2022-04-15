@@ -6,12 +6,13 @@
 //
 
 import Foundation
+import Domain
 
 
-
-struct ImageSearchResponseModel : Decodable{
+public struct ImageSearchResponseModel : Decodable{
     let documents : ImageSearchModels
     let meta: PagingAbleModel
+    
 }
 
 

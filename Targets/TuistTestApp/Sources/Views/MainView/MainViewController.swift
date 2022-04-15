@@ -5,7 +5,6 @@
 //  Created by 강지윤 on 2022/03/17.
 //
 
-import Foundation
 import UIKit
 import Then
 import SnapKit
@@ -16,7 +15,11 @@ import RxGesture
 import RxDataSources
 
 
-class MainViewController: SuperViewControllerSetting<MainViewModel> {
+import Domain
+class MainViewController: SuperViewControllerSetting<MainViewModel> , AlertProtocol{
+    
+//    var testClass : TestClass = TestClass()
+    
     
     //UI
     lazy var searchBar = DoneSearchBar().then{
@@ -64,8 +67,7 @@ class MainViewController: SuperViewControllerSetting<MainViewModel> {
         $0.isHidden = true
     }
     
-    var loadingView = LoadingView()
-    
+   
     var typeSettingSheetView = SpotBottomSheetView()
     
     
@@ -80,9 +82,9 @@ class MainViewController: SuperViewControllerSetting<MainViewModel> {
     
     
     //Other
-    private let sortTypeAction = PublishSubject<ImageSearchRequestModel.SortType>()
+    private let sortTypeAction = PublishSubject<SortType>()
     
-    var sectionHeaderTypeChangeDelegate : SectionHeaderTypeChangeDelegate?
+    weak var sectionHeaderTypeChangeDelegate : SectionHeaderTypeChangeDelegate?
     
     
     override func uiDrawing() {
@@ -90,7 +92,6 @@ class MainViewController: SuperViewControllerSetting<MainViewModel> {
         view.addSubview(searchImageCollectionView)
         view.addSubview(emptySearchView)
         view.addSubview(typeSettingSheetView)
-        view.addSubview(loadingView)
         
         searchBar.snp.makeConstraints { make in
             make.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -109,9 +110,6 @@ class MainViewController: SuperViewControllerSetting<MainViewModel> {
             make.edges.equalToSuperview()
         }
         
-        loadingView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
     }
     
     override func uiSetting() {
@@ -126,7 +124,7 @@ class MainViewController: SuperViewControllerSetting<MainViewModel> {
             if kind == UICollectionView.elementKindSectionHeader {
                 let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ImageCellHeader.id, for: indexPath) as! ImageCellHeader
                 self.sectionHeaderTypeChangeDelegate = headerView
-                
+                headerView.headerClickAction = self.typeSettingSheetView.showBottomSheet
                 return headerView
             } else {
                 return UICollectionReusableView()
@@ -192,10 +190,9 @@ class MainViewController: SuperViewControllerSetting<MainViewModel> {
         output.outputError
             .drive(onNext: { [ weak self] value in
                 guard let self = self else { return }
-                let alert = UIAlertController(title: "오류", message: value.localizedDescription , preferredStyle: .alert)
-                let success = UIAlertAction(title: "확인", style: .default)
-                alert.addAction(success)
-                self.present(alert, animated: true, completion: nil)
+                
+                self.showAlert(title: "오류", message: value.localizedDescription , preferredStyle: .alert )
+                
             })
             .disposed(by: disposeBag)
 
@@ -214,9 +211,12 @@ class MainViewController: SuperViewControllerSetting<MainViewModel> {
             .disposed(by: disposeBag)
         
         output.outputActivity
-            .drive{ [weak self] loading in
-                guard let self = self else { return }
-                self.loadingView.loadingViewSetting(loading: loading)
+            .drive{ loading in
+                if(loading){
+                    LoadingView.show()
+                }else{
+                    LoadingView.hide()
+                }
             }
            .disposed(by: disposeBag)
         

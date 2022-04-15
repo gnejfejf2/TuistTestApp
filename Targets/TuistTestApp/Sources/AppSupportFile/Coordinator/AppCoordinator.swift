@@ -1,19 +1,32 @@
 import UIKit
+import Swinject
 
-class AppCoordinator : BaseCoordinator {
-    private let window : UIWindow
+protocol AppCoodinatorProtocol {
+    var window : UIWindow { get }
+    var navigationController : UINavigationController { get }
     
-    init(window : UIWindow){
+    
+    func start()
+}
+
+class AppCoordinator : AppCoodinatorProtocol {
+    let window : UIWindow
+    let navigationController: UINavigationController
+    
+    init(window : UIWindow , navigationController : UINavigationController = UINavigationController()){
         self.window = window
-        super.init(navigationController : UINavigationController())
+        self.navigationController = navigationController
     }
     
-    override func start() {
+    func start() {
         window.makeKeyAndVisible()
         navigationController.setNavigationBarHidden(true, animated: false)
         window.rootViewController = navigationController
         
-        let coordinator = MainViewCoordinator(navigationController: navigationController)
+        let coordinator = Assembler.shared.resolver.resolve(MainViewCoordinator.self , argument : navigationController)!
+        
+//
+//        appMainCoordinator = Assembler.shared.resolver.resolve(AppCoordinator.self, argument: window)
         
         coordinator.start()
         

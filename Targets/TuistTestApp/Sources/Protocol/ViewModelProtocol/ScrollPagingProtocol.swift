@@ -1,6 +1,6 @@
 
 import Foundation
-
+import Domain
 //Class 에서만 사용이가능하도록 AnyObject 채택
 protocol ScrollPagingProtocl : AnyObject {
     

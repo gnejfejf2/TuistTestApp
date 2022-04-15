@@ -10,6 +10,10 @@ import RxCocoa
 import RxRelay
 import RxDataSources
 
+
+import Domain
+import NetworkPlatform
+
 class DetailViewModel : ViewModelBuilderProtocol {
    
     

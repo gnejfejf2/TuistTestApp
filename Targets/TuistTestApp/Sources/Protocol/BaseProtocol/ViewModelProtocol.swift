@@ -11,11 +11,8 @@ protocol ViewModelBuilderProtocol {
     associatedtype Input
     associatedtype Output
     associatedtype Builder
-    var networkAPI : NetworkServiceProtocol { get }
     var builder : Builder { get }
     var disposeBag : DisposeBag { get }
-    
-    init(networkAPI : NetworkServiceProtocol , builder : Builder)
     
     func transform(input: Input) -> Output
    

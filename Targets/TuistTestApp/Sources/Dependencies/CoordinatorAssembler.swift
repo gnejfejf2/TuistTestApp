@@ -16,5 +16,9 @@ class CoordinatorAssembly : Assembly {
             let appCoordinator = AppCoordinator(window: window)
             return appCoordinator
         }
+        container.register(MainViewCoordinator.self) { (r , navigationController : UINavigationController) in
+            let mainViewCoordinator = MainViewCoordinator(navigationController: navigationController)
+            return mainViewCoordinator
+        }
     }
 }

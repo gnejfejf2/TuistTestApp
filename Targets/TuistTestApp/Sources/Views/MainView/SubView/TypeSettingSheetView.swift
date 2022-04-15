@@ -11,12 +11,12 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 
-
+import Domain
 protocol BottomSheetItemSettingProtocol {
     var sortTypeViewArray : [SortTypeStackView] { get set }
     
     func bottomSheetItemSetting()
-    func sortTypeSetting(type : ImageSearchRequestModel.SortType)
+    func sortTypeSetting(type : SortType)
 }
 
 class SpotBottomSheetView : BottomSheetView , BottomSheetItemSettingProtocol {
@@ -73,7 +73,7 @@ class SpotBottomSheetView : BottomSheetView , BottomSheetItemSettingProtocol {
 
 
 extension BottomSheetItemSettingProtocol {
-    func sortTypeSetting(type : ImageSearchRequestModel.SortType){
+    func sortTypeSetting(type : SortType){
         sortTypeViewArray.forEach{
             if($0.item == type){
                 $0.selectSetting()

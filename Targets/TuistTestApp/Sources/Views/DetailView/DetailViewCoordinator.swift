@@ -7,25 +7,41 @@
 
 import Foundation
 
-class DetailViewCoordinator : BaseCoordinator {
- 
-    var imageSearchModel : ImageSearchModel?
-    
-    
-    override func start() {
-        guard let imageSearchModel = imageSearchModel else { return }
-        let viewModel = DetailViewModel(builder: .init(
-            coordinator : self ,
-            imageSearchModel : imageSearchModel
-        ))
-        let viewController = DetailViewController(viewModel: viewModel)
-        navigationController.pushViewController(viewController, animated: true)
+
+
+import Domain
+class DetailViewCoordinator : ChildCoordinator {
+
+    struct Builder {
+        let imageSearchModel : ImageSearchModel
     }
     
-    func dismiss(){
+   
+    var baseCoordinator : Coordinator
+    var builder : Builder
+    
+    
+    required init(baseCoordinator: Coordinator , builder : Builder) {
+        self.baseCoordinator = baseCoordinator
+        self.builder = builder
+    }
+    
+    
+    func start() {
+//        let viewModel = makeViewModel(builder : builder)
+//        let viewController = DetailViewController(viewModel: viewModel)
+//        baseCoordinator.navigationController.pushViewController(viewController, animated: true)
+    }
+    
+    
+//    func makeViewModel(builder : Builder) -> DetailViewModel{
+//
+//
+//
+//        return DetailViewModel(networkAPI: NetworkServiceProtocol , builder: .init(coordinator: self, imageSearchModel: <#T##ImageSearchModel#>))
+//    }
         
-        didFinish(coordinator: self)
-    }
+
     
     
 }
