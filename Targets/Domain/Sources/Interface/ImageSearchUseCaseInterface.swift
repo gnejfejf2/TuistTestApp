@@ -10,7 +10,7 @@ import Foundation
 import Domain
 import RxSwift
 
-public protocol ImageSearchInterface {
+public protocol ImageSearchUseCaseInterface {
     func imageSearch(query : String , sortType : SortType , page : Int , size : Int) -> Observable<(ImageSearchModels , PagingAbleModel)>
 }
 

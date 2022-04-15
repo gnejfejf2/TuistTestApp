@@ -9,5 +9,5 @@
 import Foundation
 public protocol UseCaseProviderInterface {
     
-    func makeImageSearchUseCase() -> ImageSearchUseCase
+    func makeImageSearchUseCase() -> ImageSearchUseCaseInterface
 }

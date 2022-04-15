@@ -46,26 +46,77 @@ class MainViewModel : ViewModelBuilderProtocol {
     let errorTracker = ErrorTracker()
     let activityIndicator = ActivityIndicator()
     
-    let imageSearchUseCase : ImageSearchUseCase
+    let imageSearchUseCase : ImageSearchUseCaseInterface
     let builder : Builder
     let disposeBag : DisposeBag = DisposeBag()
     
-    required init( imageSearchUseCase : ImageSearchUseCase , builder : Builder) {
+    required init( imageSearchUseCase : ImageSearchUseCaseInterface , builder : Builder) {
         self.imageSearchUseCase = imageSearchUseCase
         self.builder = builder
     }
     
     
     func transform(input: Input) -> Output {
-        let imageSearchModels = BehaviorSubject<[ImageSearchSectionModel]>(value: [ImageSearchSectionModel(name: "첫번째", items: [])])
+        let mainViewSectionModels = BehaviorSubject<[ImageSearchSectionModel]>(value: [])
         
-        let imageSearchModel = PublishSubject<[ImageSearchModel]>()
-        
+        let imageSearchSectionModel = PublishSubject<ImageSearchSectionModel>()
         
         let searchClear = PublishSubject<Void>()
         let meta = PublishSubject<PagingAbleModel>()
         let scrollPagingCall = PublishSubject<Bool>()
         let sortType = PublishSubject<SortType>()
+        
+        
+        
+        imageSearchSectionModel
+            .withLatestFrom(mainViewSectionModels) { ($0 , $1) }
+            .subscribe { (sectionModel , sectionModels)  in
+                mainViewSectionModels.onNext(sectionModels.itemChange(items: sectionModel, index: 0))
+            }
+            .disposed(by: disposeBag)
+
+        
+        
+  //코드 A
+        let searchAction = input.searchAction
+            .asObservable()
+            .flatMap { [weak self] keyword -> Observable<(ImageSearchModels , PagingAbleModel)> in
+                guard let self = self else { return .never() }
+                self.pagingCountClear()
+                return self.imageSearchUseCase.imageSearch(query: keyword, sortType: .accuracy, page: self.pagingCount, size: self.itemCount)
+                    .asObservable()
+                    .trackActivity(self.activityIndicator)
+                    .trackError(self.errorTracker)
+                    .catch{ error in
+                        return .never()
+                    }
+            }
+            .share()
+
+        searchAction
+            .asDriverOnErrorNever()
+            .map{ _ in return () }
+            .drive(searchClear)
+            .disposed(by: disposeBag)
+
+        searchAction
+            .asDriverOnErrorNever()
+            .map{ _ in return SortType.accuracy }
+            .drive(sortType)
+            .disposed(by: disposeBag)
+
+        searchAction
+            .asDriverOnErrorNever()
+            .map{ $0.1 }
+            .drive(meta)
+            .disposed(by: disposeBag)
+
+        searchAction
+            .asDriverOnErrorNever()
+            .map{ $0.0.sectionModelMake(sectionName: "첫번째") }
+            .drive(imageSearchSectionModel)
+            .disposed(by: disposeBag)
+        
         
         input.searchAction
             .asObservable()
@@ -80,17 +131,12 @@ class MainViewModel : ViewModelBuilderProtocol {
                         return .never()
                     }
             }
-            .withLatestFrom(imageSearchModels) { ($0 , $1) }
             .asDriverOnErrorNever()
-            .drive(onNext: { response , lastSearachModels in
-                let searchModels = response.0
-                let metaModel = response.1
-                sortType.onNext(SortType.accuracy)
+            .drive(onNext: { response  in
                 searchClear.onNext(())
-                meta.onNext(metaModel)
-                var lastItem = lastSearachModels
-                lastItem[0].items = searchModels
-                imageSearchModels.onNext(lastItem)
+                sortType.onNext(SortType.accuracy)
+                meta.onNext(response.1)
+                imageSearchSectionModel.onNext(response.0.sectionModelMake(sectionName: "첫번째"))
             })
             .disposed(by: disposeBag)
         
@@ -115,34 +161,31 @@ class MainViewModel : ViewModelBuilderProtocol {
                 guard let self = self else { return .never() }
                 return self.imageSearchUseCase.imageSearch(query: keyword, sortType: sortType, page: self.pagingCount, size: self.itemCount)
                     .asObservable()
-//                    .trackActivity(self.activityIndicator)
                     .trackError(self.errorTracker)
                     .catch{ error in
                         return .never()
                     }
             }
-            .withLatestFrom(imageSearchModels) { ($0 , $1) }
+            .withLatestFrom(mainViewSectionModels) { ($0 , $1) }
             .asDriverOnErrorNever()
-            .drive(onNext: { response , lastSearachModels in
-                let searchModels = response.0
-                let metaModel = response.1
-                meta.onNext(metaModel)
-                var lastItem = lastSearachModels
-                lastItem[0].items += searchModels
-                imageSearchModels.onNext(lastItem)
-            })
+            .map{ (response , lastSearachModels) -> ImageSearchSectionModel?  in
+                guard let searchSection = lastSearachModels.first else { return nil }
+                return searchSection.itemsAdd(models: response.0)
+            }
+            .compactMap{ $0 }
+            .drive(imageSearchSectionModel)
             .disposed(by: disposeBag)
-//
-//        
+
+
+
         input.cellClick
             .asObservable()
             .bind { [weak self] imageModel in
                 guard let self = self else { return }
-                print("클릭?")
                 self.builder.coordinator.openDetailView(imageModel)
             }.disposed(by: disposeBag)
 //        
-        imageSearchModels
+        mainViewSectionModels
             .asObservable()
             .withLatestFrom(meta) { ($0 , $1) }
             .map { [weak self] data in
@@ -165,7 +208,7 @@ class MainViewModel : ViewModelBuilderProtocol {
                         return .never()
                     }
             }
-            .withLatestFrom(imageSearchModels) { ($0 , $1) }
+            .withLatestFrom(mainViewSectionModels) { ($0 , $1) }
             .asDriverOnErrorNever()
             .drive(onNext: { response , lastSearachModels in
                 let searchModels = response.0
@@ -174,12 +217,12 @@ class MainViewModel : ViewModelBuilderProtocol {
                 meta.onNext(metaModel)
                 var lastItem = lastSearachModels
                 lastItem[0].items = searchModels
-                imageSearchModels.onNext(lastItem)
+                mainViewSectionModels.onNext(lastItem)
             })
             .disposed(by: disposeBag)
 
         return .init(
-            imageSearchModels: imageSearchModels.asDriverOnErrorNever() ,
+            imageSearchModels: mainViewSectionModels.asDriverOnErrorNever() ,
             searchClear: searchClear.asDriverOnErrorNever(),
             outputError: errorTracker.asDriver(),
             outputActivity : activityIndicator.asDriver(),

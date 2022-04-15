@@ -14,8 +14,8 @@ import NetworkPlatform
 class UseCaseAssembly : Assembly {
    
     func assemble(container: Container) {
-        container.register(ImageSearchUseCase.self) { (r) in
-            let imageSearchUseCase : ImageSearchUseCase = r.resolve(UseCaseProvider.self)!.makeImageSearchUseCase()
+        container.register(ImageSearchUseCaseInterface.self) { (r) in
+            let imageSearchUseCase : ImageSearchUseCaseInterface = r.resolve(UseCaseProvider.self)!.makeImageSearchUseCase()
             return imageSearchUseCase
         }
     }

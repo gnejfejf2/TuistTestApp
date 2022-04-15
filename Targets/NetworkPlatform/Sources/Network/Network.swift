@@ -12,7 +12,7 @@ import Domain
 import RxAlamofire
 import RxSwift
 
-final class Network<T: Decodable> {
+public final class Network<T: Decodable> {
     
     private let endPoint: String
     private let header : HTTPHeaders

@@ -10,19 +10,25 @@ import Foundation
 import Alamofire
 
 
+public protocol NetworkProviderInterface {
+    
+    
+    
+    func makeImageSearchNetwork() -> ImageSearchNetworkInterface
+}
 
-final class NetworkProvider {
-    private let apiEndpoint : String
+
+
+public final class NetworkProvider : NetworkProviderInterface {
+    private let apiEndpoint : String = "https://dapi.kakao.com"
     private let header : HTTPHeaders = [
         "accept": "application/json" ,
         "Authorization" : "KakaoAK bc4f662e41a4ba56baa598f8c22efdcd"
     ]
     
-    public init() {
-        apiEndpoint = "https://dapi.kakao.com"
-    }
+    
 
-    func makeImageSearchNetwork() -> ImageSearchNetwork {
+    public func makeImageSearchNetwork() -> ImageSearchNetworkInterface {
         let network = Network<ImageSearchResponseModel>(apiEndpoint, header)
         return ImageSearchNetwork(network: network)
     }

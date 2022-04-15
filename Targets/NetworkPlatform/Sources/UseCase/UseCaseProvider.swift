@@ -18,7 +18,7 @@ public final class UseCaseProvider: UseCaseProviderInterface {
         self.networkProvider = NetworkProvider()
     }
 
-    public func makeImageSearchUseCase() -> ImageSearchUseCase {
+    public func makeImageSearchUseCase() -> ImageSearchUseCaseInterface {
         return ImageSearchUseCase(networkAPI: networkProvider.makeImageSearchNetwork())
     }
   

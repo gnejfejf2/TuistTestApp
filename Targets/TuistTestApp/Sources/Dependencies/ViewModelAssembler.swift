@@ -14,10 +14,8 @@ import UIKit
 class ViewModelAssembler : Assembly {
     func assemble(container: Container) {
         container.register(MainViewModel.self) { (r , coordinator : MainViewCoordinator) in
-            
-            let imageSearchUseCase : ImageSearchUseCase = r.resolve(ImageSearchUseCase.self)!
-            
-            let mainViewModel : MainViewModel = MainViewModel(imageSearchUseCase: imageSearchUseCase, builder: .init(coordinator: coordinator))
+            let imageSearchUseCase : ImageSearchUseCaseInterface = r.resolve(ImageSearchUseCaseInterface.self)!
+            let mainViewModel : MainViewModel = MainViewModel(imageSearchUseCase : imageSearchUseCase, builder: .init(coordinator: coordinator))
             return mainViewModel
         }
     }

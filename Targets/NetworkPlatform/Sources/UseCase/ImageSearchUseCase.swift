@@ -11,13 +11,13 @@ import Domain
 import RxSwift
 
 
-public final class ImageSearchUseCase : ImageSearchInterface{
+public final class ImageSearchUseCase : ImageSearchUseCaseInterface{
    
     
     
-    private let networkAPI : ImageSearchNetwork
+    private let networkAPI : ImageSearchNetworkInterface
     
-    public init(networkAPI : ImageSearchNetwork){
+    public init(networkAPI : ImageSearchNetworkInterface){
         self.networkAPI = networkAPI
     }
     

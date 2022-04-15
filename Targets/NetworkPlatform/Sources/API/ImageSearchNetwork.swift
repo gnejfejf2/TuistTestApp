@@ -9,7 +9,14 @@
 import Domain
 import RxSwift
 
-public final class ImageSearchNetwork {
+
+public protocol ImageSearchNetworkInterface {
+    
+    func fetchImageSearchResponse(parameters : ImageSearchRequestModel) -> Observable<ImageSearchResponseModel>
+    
+}
+
+public final class ImageSearchNetwork : ImageSearchNetworkInterface {
     private let network : Network<ImageSearchResponseModel>
 
     init(network: Network<ImageSearchResponseModel>) {
