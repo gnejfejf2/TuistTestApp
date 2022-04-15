@@ -31,7 +31,6 @@ public final class Network<T: Decodable> {
         let absolutePath = "\(endPoint)\(path)"
          return RxAlamofire
             .data(.get, absolutePath , parameters: parameters , encoding: URLEncoding.queryString, headers: header)
-        
             .debug()
             .observe(on: scheduler)
             .map({ data -> T in

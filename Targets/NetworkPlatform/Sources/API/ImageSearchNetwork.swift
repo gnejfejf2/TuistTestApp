@@ -25,11 +25,6 @@ public final class ImageSearchNetwork : ImageSearchNetworkInterface {
 
     public func fetchImageSearchResponse(parameters : ImageSearchRequestModel) -> Observable<ImageSearchResponseModel> {
         return network.getItem("/v2/search/image" , parameters: parameters.toDictionary)
-//            .map{ $0.documents }
-            
     }
 
-//    public func fetchAlbum(albumId: String) -> Observable<Album> {
-//        return network.getItem("albums", itemId: albumId)
-//    }
 }

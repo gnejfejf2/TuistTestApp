@@ -58,9 +58,7 @@ class MainViewModel : ViewModelBuilderProtocol {
     
     func transform(input: Input) -> Output {
         let mainViewSectionModels = BehaviorSubject<[ImageSearchSectionModel]>(value: [])
-        
         let imageSearchSectionModel = PublishSubject<ImageSearchSectionModel>()
-        
         let searchClear = PublishSubject<Void>()
         let meta = PublishSubject<PagingAbleModel>()
         let scrollPagingCall = PublishSubject<Bool>()
@@ -76,15 +74,20 @@ class MainViewModel : ViewModelBuilderProtocol {
             .disposed(by: disposeBag)
 
         
+        input.searchAction
+            .drive{  [weak self] _ in
+                guard let self = self else { return }
+                self.pagingCountClear()
+            }
+            .disposed(by: disposeBag)
+        
         
   //코드 A
         let searchAction = input.searchAction
             .asObservable()
             .flatMap { [weak self] keyword -> Observable<(ImageSearchModels , PagingAbleModel)> in
                 guard let self = self else { return .never() }
-                self.pagingCountClear()
                 return self.imageSearchUseCase.imageSearch(query: keyword, sortType: .accuracy, page: self.pagingCount, size: self.itemCount)
-                    .asObservable()
                     .trackActivity(self.activityIndicator)
                     .trackError(self.errorTracker)
                     .catch{ error in
@@ -118,27 +121,27 @@ class MainViewModel : ViewModelBuilderProtocol {
             .disposed(by: disposeBag)
         
         
-        input.searchAction
-            .asObservable()
-            .flatMap { [weak self] keyword -> Observable<(ImageSearchModels , PagingAbleModel)> in
-                guard let self = self else { return .never() }
-                self.pagingCountClear()
-                return self.imageSearchUseCase.imageSearch(query: keyword, sortType: .accuracy, page: self.pagingCount, size: self.itemCount)
-                    .asObservable()
-                    .trackActivity(self.activityIndicator)
-                    .trackError(self.errorTracker)
-                    .catch{ error in
-                        return .never()
-                    }
-            }
-            .asDriverOnErrorNever()
-            .drive(onNext: { response  in
-                searchClear.onNext(())
-                sortType.onNext(SortType.accuracy)
-                meta.onNext(response.1)
-                imageSearchSectionModel.onNext(response.0.sectionModelMake(sectionName: "첫번째"))
-            })
-            .disposed(by: disposeBag)
+//        input.searchAction
+//            .asObservable()
+//            .flatMap { [weak self] keyword -> Observable<(ImageSearchModels , PagingAbleModel)> in
+//                guard let self = self else { return .never() }
+//                self.pagingCountClear()
+//                return self.imageSearchUseCase.imageSearch(query: keyword, sortType: .accuracy, page: self.pagingCount, size: self.itemCount)
+//                    .asObservable()
+//                    .trackActivity(self.activityIndicator)
+//                    .trackError(self.errorTracker)
+//                    .catch{ error in
+//                        return .never()
+//                    }
+//            }
+//            .asDriverOnErrorNever()
+//            .drive(onNext: { response  in
+//                searchClear.onNext(())
+//                sortType.onNext(SortType.accuracy)
+//                meta.onNext(response.1)
+//                imageSearchSectionModel.onNext(response.0.sectionModelMake(sectionName: "첫번째"))
+//            })
+//            .disposed(by: disposeBag)
         
        
         
