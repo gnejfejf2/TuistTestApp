@@ -21,12 +21,12 @@ public final class ImageSearchUseCase : ImageSearchInterface{
         self.networkAPI = networkAPI
     }
     
-    public func imageSearch(query : String , sortType : SortType , page : Int , size : Int) -> Observable<ImageSearchModels> {
+    public func imageSearch(query : String , sortType : SortType , page : Int , size : Int) -> Observable<(ImageSearchModels , PagingAbleModel)> {
         let parameters : ImageSearchRequestModel = ImageSearchRequestModel(query: query, sort: sortType, page: page, size: size)
         
         return networkAPI.fetchImageSearchResponse(parameters : parameters)
-                .map{ $0.documents }
-        
+            .map{ ($0.documents , $0.meta) }
+         
     }
    
 }

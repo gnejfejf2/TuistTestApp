@@ -84,7 +84,7 @@ class MainViewController: SuperViewControllerSetting<MainViewModel> , AlertProto
     //Other
     private let sortTypeAction = PublishSubject<SortType>()
     
-    var sectionHeaderTypeChangeDelegate : SectionHeaderTypeChangeDelegate?
+    weak var sectionHeaderTypeChangeDelegate : SectionHeaderTypeChangeDelegate?
     
     
     override func uiDrawing() {
@@ -124,7 +124,7 @@ class MainViewController: SuperViewControllerSetting<MainViewModel> , AlertProto
             if kind == UICollectionView.elementKindSectionHeader {
                 let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: ImageCellHeader.id, for: indexPath) as! ImageCellHeader
                 self.sectionHeaderTypeChangeDelegate = headerView
-                
+                headerView.headerClickAction = self.typeSettingSheetView.showBottomSheet
                 return headerView
             } else {
                 return UICollectionReusableView()

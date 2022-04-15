@@ -10,7 +10,7 @@ import SnapKit
 import Then
 
 import Domain
-protocol SectionHeaderTypeChangeDelegate {
+protocol SectionHeaderTypeChangeDelegate : AnyObject{
     func sortTypeAction(type : SortType)
 }
 
@@ -18,6 +18,7 @@ class ImageCellHeader: UICollectionReusableView , SectionHeaderTypeChangeDelegat
   
     static var id: String { NSStringFromClass(Self.self).components(separatedBy: ".").last ?? "" }
     
+    var headerClickAction : (()->())? = nil
    
     //UI
     let sortTypeButton = UIButton().then{
@@ -51,7 +52,7 @@ class ImageCellHeader: UICollectionReusableView , SectionHeaderTypeChangeDelegat
     }
  
     @objc func clickAction(){
-        
+        headerClickAction?()
     }
 }
 

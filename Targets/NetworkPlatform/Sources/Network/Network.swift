@@ -29,15 +29,12 @@ final class Network<T: Decodable> {
     
     func getItem(_ path: String , parameters : [String: Any] = [:]) -> Observable<T> {
         let absolutePath = "\(endPoint)\(path)"
-        print(parameters)
-        print(absolutePath)
-        return RxAlamofire
+         return RxAlamofire
             .data(.get, absolutePath , parameters: parameters , encoding: URLEncoding.queryString, headers: header)
         
             .debug()
             .observe(on: scheduler)
             .map({ data -> T in
-                print(String(data: data, encoding: .utf8))
                 return try JSONDecoder().decode(T.self, from: data)
             })
     }

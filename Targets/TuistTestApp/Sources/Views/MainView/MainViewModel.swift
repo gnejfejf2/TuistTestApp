@@ -69,7 +69,7 @@ class MainViewModel : ViewModelBuilderProtocol {
         
         input.searchAction
             .asObservable()
-            .flatMap { [weak self] keyword -> Observable<ImageSearchModels> in
+            .flatMap { [weak self] keyword -> Observable<(ImageSearchModels , PagingAbleModel)> in
                 guard let self = self else { return .never() }
                 self.pagingCountClear()
                 return self.imageSearchUseCase.imageSearch(query: keyword, sortType: .accuracy, page: self.pagingCount, size: self.itemCount)
@@ -83,11 +83,11 @@ class MainViewModel : ViewModelBuilderProtocol {
             .withLatestFrom(imageSearchModels) { ($0 , $1) }
             .asDriverOnErrorNever()
             .drive(onNext: { response , lastSearachModels in
-                let searchModels = response
-//                let metaModel = response.meta
+                let searchModels = response.0
+                let metaModel = response.1
                 sortType.onNext(SortType.accuracy)
                 searchClear.onNext(())
-//                meta.onNext(metaModel)
+                meta.onNext(metaModel)
                 var lastItem = lastSearachModels
                 lastItem[0].items = searchModels
                 imageSearchModels.onNext(lastItem)
@@ -106,83 +106,78 @@ class MainViewModel : ViewModelBuilderProtocol {
             .subscribe(sortType)
             .disposed(by: disposeBag)
 //        
-//        input.bottomScrollTriger
-//            .asObservable()
-//            .withLatestFrom(scrollPagingCall) { $1 }
-//            .filter{ $0 }
-//            .withLatestFrom(Observable.combineLatest(input.searchAction.asObservable() , sortType)) { ($1.0 , $1.1) }
-//            .flatMap{ [weak self] keyword , sortType  -> Observable<ImageSearchResponseModel> in
-//                guard let self = self else { return .never() }
-//                let param = ImageSearchRequestModel(query: keyword, sort: sortType, page: self.pagingCount, size: self.itemCount)
-//                return self.getImageSearchModels(param: param, networkAPI: self.networkAPI)
-//                                   .trackError(self.errorTracker)
-//                                   .catch{ error in
-//                                        return .never()
-//                                   }
-//            }
-//            .withLatestFrom(imageSearchModels) { ($0 , $1) }
-//            .asDriverOnErrorNever()
-//            .drive(onNext: { response , lastSearachModels in
-//                let searchModels = response.documents
-//                let metaModel = response.meta
-//                meta.onNext(metaModel)
-//                var lastItem = lastSearachModels
-//                lastItem[0].items += searchModels
-//                imageSearchModels.onNext(lastItem)
-//            })
-//            .disposed(by: disposeBag)
-//
-//        
-//        input.cellClick
-//            .asObservable()
-//            .bind { [weak self] imageModel in
-//                guard let self = self else { return }
-//                self.builder.coordinator.openDetailView(imageModel)
-//            }.disposed(by: disposeBag)
-//        
-//        imageSearchModels
-//            .asObservable()
-//            .withLatestFrom(meta) { ($0 , $1) }
-//            .map { [weak self] data in
-//                guard let self = self else { return false }
-//                return self.pagingAbleChecking(paingAble: data.1, totalCount:  data.0.first!.items.count)
-//            }
-//            .subscribe(scrollPagingCall)
-//            .disposed(by: disposeBag)
-//
-//        input.sortTypeAction
-//            .asObservable()
-//            .withLatestFrom(input.searchAction) { ($1 , $0) }
-//            .flatMap { [weak self] keyword , sortType -> Observable<ImageSearchResponseModel>  in
-//                guard let self = self else { return .never() }
-//                self.pagingCountClear()
-//                return self.getImageSearchModels(param: ImageSearchRequestModel(query: keyword, sort: sortType, page: self.pagingCount, size: self.itemCount), networkAPI: self.networkAPI)
-//                    .trackError(self.errorTracker)
+        input.bottomScrollTriger
+            .asObservable()
+            .withLatestFrom(scrollPagingCall) { $1 }
+            .filter{ $0 }
+            .withLatestFrom(Observable.combineLatest(input.searchAction.asObservable() , sortType)) { ($1.0 , $1.1) }
+            .flatMap{ [weak self] keyword , sortType  -> Observable<(ImageSearchModels , PagingAbleModel)> in
+                guard let self = self else { return .never() }
+                return self.imageSearchUseCase.imageSearch(query: keyword, sortType: sortType, page: self.pagingCount, size: self.itemCount)
+                    .asObservable()
 //                    .trackActivity(self.activityIndicator)
-//                    .catch{ error in
-//                         return .never()
-//                    }
-//            }
-//            .withLatestFrom(imageSearchModels) { ($0 , $1) }
-//            .asDriverOnErrorNever()
-//            .drive(onNext: { response , lastSearachModels in
-//                let searchModels = response.documents
-//                let metaModel = response.meta
-//                searchClear.onNext(())
-//                meta.onNext(metaModel)
-//                var lastItem = lastSearachModels
-//                lastItem[0].items = searchModels
-//                imageSearchModels.onNext(lastItem)
-//            })
-//            .disposed(by: disposeBag)
+                    .trackError(self.errorTracker)
+                    .catch{ error in
+                        return .never()
+                    }
+            }
+            .withLatestFrom(imageSearchModels) { ($0 , $1) }
+            .asDriverOnErrorNever()
+            .drive(onNext: { response , lastSearachModels in
+                let searchModels = response.0
+                let metaModel = response.1
+                meta.onNext(metaModel)
+                var lastItem = lastSearachModels
+                lastItem[0].items += searchModels
+                imageSearchModels.onNext(lastItem)
+            })
+            .disposed(by: disposeBag)
+//
 //        
+        input.cellClick
+            .asObservable()
+            .bind { [weak self] imageModel in
+                guard let self = self else { return }
+                print("클릭?")
+                self.builder.coordinator.openDetailView(imageModel)
+            }.disposed(by: disposeBag)
 //        
-//        imageSearchModel
-//            .withLatestFrom(imageSearchModels) { $1.first!.items + $0 }
-////            .subscribe(<#T##observer: ObserverType##ObserverType#>)
-        
-        
-        
+        imageSearchModels
+            .asObservable()
+            .withLatestFrom(meta) { ($0 , $1) }
+            .map { [weak self] data in
+                guard let self = self else { return false }
+                return self.pagingAbleChecking(paingAble: data.1, totalCount:  data.0.first!.items.count)
+            }
+            .subscribe(scrollPagingCall)
+            .disposed(by: disposeBag)
+//
+        input.sortTypeAction
+            .asObservable()
+            .withLatestFrom(input.searchAction) { ($1 , $0) }
+            .flatMap{ [weak self] keyword , sortType  -> Observable<(ImageSearchModels , PagingAbleModel)> in
+                guard let self = self else { return .never() }
+                return self.imageSearchUseCase.imageSearch(query: keyword, sortType: sortType, page: self.pagingCount, size: self.itemCount)
+                    .asObservable()
+                    .trackActivity(self.activityIndicator)
+                    .trackError(self.errorTracker)
+                    .catch{ error in
+                        return .never()
+                    }
+            }
+            .withLatestFrom(imageSearchModels) { ($0 , $1) }
+            .asDriverOnErrorNever()
+            .drive(onNext: { response , lastSearachModels in
+                let searchModels = response.0
+                let metaModel = response.1
+                searchClear.onNext(())
+                meta.onNext(metaModel)
+                var lastItem = lastSearachModels
+                lastItem[0].items = searchModels
+                imageSearchModels.onNext(lastItem)
+            })
+            .disposed(by: disposeBag)
+
         return .init(
             imageSearchModels: imageSearchModels.asDriverOnErrorNever() ,
             searchClear: searchClear.asDriverOnErrorNever(),
