@@ -8,15 +8,21 @@
 
 import Foundation
 import Swinject
-import NetworkPlatform
+import Domain
 import UIKit
 
 class ViewModelAssembler : Assembly {
     func assemble(container: Container) {
         container.register(MainViewModel.self) { (r , coordinator : MainViewCoordinator) in
             let imageSearchUseCase : ImageSearchUseCaseInterface = r.resolve(ImageSearchUseCaseInterface.self)!
+            
             let mainViewModel : MainViewModel = MainViewModel(imageSearchUseCase : imageSearchUseCase, builder: .init(coordinator: coordinator))
             return mainViewModel
+        }
+        
+        container.register(DetailViewModel.self) { (r , imageSearchModel : ImageSearchModel , coordinator : DetailViewCoordinator) in
+            let detailViewModel : DetailViewModel = DetailViewModel(builder: .init(coordinator: coordinator, imageSearchModel: imageSearchModel))
+            return detailViewModel
         }
     }
 }

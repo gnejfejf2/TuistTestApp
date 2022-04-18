@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Domain
 import RxSwift
 
 public protocol ImageSearchUseCaseInterface {

@@ -58,7 +58,7 @@ let project = Project(
         Target(
             name: "NetworkPlatform",
             platform: .iOS,
-            product: .framework,
+            product: .staticLibrary,
             bundleId : "com.jyk.NetworkPlatform",
             deploymentTarget : .iOS(targetVersion: "13.0.0", devices: .iphone),
             infoPlist : .default,
@@ -75,7 +75,7 @@ let project = Project(
         Target(
             name: "Domain",
             platform: .iOS,
-            product: .framework,
+            product: .staticLibrary,
             bundleId : "com.jyk.Domain",
             deploymentTarget : .iOS(targetVersion: "13.0.0", devices: .iphone),
             infoPlist : .default,

@@ -9,13 +9,14 @@
 import Foundation
 import Swinject
 import UIKit
+import Domain
 import NetworkPlatform
 
 class UseCaseAssembly : Assembly {
    
     func assemble(container: Container) {
         container.register(ImageSearchUseCaseInterface.self) { (r) in
-            let imageSearchUseCase : ImageSearchUseCaseInterface = r.resolve(UseCaseProvider.self)!.makeImageSearchUseCase()
+            let imageSearchUseCase : ImageSearchUseCaseInterface = r.resolve(UseCaseProviderInterface.self)!.makeImageSearchUseCase()
             return imageSearchUseCase
         }
     }

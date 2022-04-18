@@ -20,6 +20,7 @@ protocol BottomSheetItemSettingProtocol {
 }
 
 class SpotBottomSheetView : BottomSheetView , BottomSheetItemSettingProtocol {
+  
     
     
     //UI
@@ -31,11 +32,11 @@ class SpotBottomSheetView : BottomSheetView , BottomSheetItemSettingProtocol {
         $0.text = "정렬"
     }
     
-    var 정확도순 = SortTypeStackView(item : .accuracy).then{
+    var inOrderOfAccuracy : SortTypeStackView = SortTypeStackView(item : .accuracy).then{
         $0.typeLabel.text =  "정확도순"
         $0.selectSetting()
     }
-    var 최신순 = SortTypeStackView(item : .recency).then{
+    var inOrderOfRecency : SortTypeStackView = SortTypeStackView(item : .recency).then{
         $0.typeLabel.text =  "최신순"
         $0.unSelecteSetting()
     }
@@ -43,7 +44,7 @@ class SpotBottomSheetView : BottomSheetView , BottomSheetItemSettingProtocol {
     
     
     //Other
-    lazy var sortTypeViewArray = [정확도순,최신순]
+    lazy var sortTypeViewArray : [SortTypeStackView]  = [inOrderOfAccuracy,inOrderOfRecency]
     
     
     

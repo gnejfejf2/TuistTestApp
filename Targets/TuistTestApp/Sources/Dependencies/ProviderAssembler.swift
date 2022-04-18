@@ -8,12 +8,13 @@
 
 import Foundation
 import Swinject
+import Domain
 import NetworkPlatform
 
 class ProviderAssembler : Assembly {
     func assemble(container: Container) {
-        container.register(UseCaseProvider.self) { (r) in
-            let useCaseProvider = UseCaseProvider()
+        container.register(UseCaseProviderInterface.self) { (r) in
+            let useCaseProvider : UseCaseProviderInterface = UseCaseProvider()
             return useCaseProvider
         }
        

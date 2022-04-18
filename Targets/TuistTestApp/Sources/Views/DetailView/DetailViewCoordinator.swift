@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import Swinject
 
 
 import Domain
@@ -28,9 +28,10 @@ class DetailViewCoordinator : ChildCoordinator {
     
     
     func start() {
-//        let viewModel = makeViewModel(builder : builder)
-//        let viewController = DetailViewController(viewModel: viewModel)
-//        baseCoordinator.navigationController.pushViewController(viewController, animated: true)
+      
+        let viewModel = Assembler.shared.resolver.resolve(DetailViewModel.self , arguments : builder.imageSearchModel , self )!
+        let viewController = DetailViewController(viewModel: viewModel)
+        baseCoordinator.navigationController.pushViewController(viewController, animated: true)
     }
     
     

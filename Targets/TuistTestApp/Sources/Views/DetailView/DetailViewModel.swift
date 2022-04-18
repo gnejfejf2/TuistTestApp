@@ -37,13 +37,11 @@ class DetailViewModel : ViewModelBuilderProtocol {
     let errorTracker = ErrorTracker()
     
    
-    let networkAPI : NetworkServiceProtocol
     let builder : Builder
     let disposeBag : DisposeBag = DisposeBag()
 
 
-    required init(networkAPI: NetworkServiceProtocol = NetworkingAPI.shared, builder : Builder) {
-        self.networkAPI = networkAPI
+    required init(builder : Builder) {
         self.builder = builder
     }
     

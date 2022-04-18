@@ -24,10 +24,8 @@ let dependencies = Dependencies(
     ], baseSettings: .settings(
         configurations: [
             .debug(name: "Debug"),
-            
-                .release(name: "Release")
-        ]
-    )
+            .release(name: "Release")
+        ])
     ),
     
     platforms: [.iOS]
