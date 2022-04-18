@@ -14,7 +14,7 @@ public final class UseCaseProvider: UseCaseProviderInterface {
     
     private let networkProvider: NetworkProvider
 
-    public init() {
+    public init(networkProvider : NetworkProvider = NetworkProvider()) {
         self.networkProvider = NetworkProvider()
     }
 

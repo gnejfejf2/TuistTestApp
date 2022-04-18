@@ -1,0 +1,39 @@
+{
+    "documents": [
+        {
+            "collection": "blog",
+            "datetime": "2015-07-15T15:53:00.000+09:00",
+            "display_sitename": "네이버블로그",
+            "doc_url": "http://blog.naver.com/hunterpaper/220420970751",
+            "height": 180,
+            "image_url": "http://postfiles6.naver.net/20150715_149/hunterpaper_1436943207713GXERA_JPEG/%C7%CF%C6%AE%BE%D7%C0%DA_%C4%AB%C6%E4_%B9%E8%B3%CA.jpg?type=w2",
+            "thumbnail_url": "https://search2.kakaocdn.net/argon/130x130_85_c/32MwHEO8EZw",
+            "width": 740
+        },
+        {
+            "collection": "news",
+            "datetime": "2016-06-28T06:40:05.000+09:00",
+            "display_sitename": "뉴스엔",
+            "doc_url": "http://v.media.daum.net/v/20160628064006804",
+            "height": 2248,
+            "image_url": "http://t1.daumcdn.net/news/201606/28/newsen/20160628064005690ekui.jpg",
+            "thumbnail_url": "https://search1.kakaocdn.net/argon/130x130_85_c/1r4wpPqMsVZ",
+            "width": 500
+        },
+        {
+            "collection": "news",
+            "datetime": "2016-06-28T06:40:05.000+09:00",
+            "display_sitename": "뉴스엔",
+            "doc_url": "http://v.media.daum.net/v/20160628064006804",
+            "height": 2248,
+            "image_url": "http://t1.daumcdn.net/news/201606/28/newsen/20160628064005690ekui.jpg",
+            "thumbnail_url": "https://search1.kakaocdn.net/argon/130x130_85_c/1r4wpPqMsVZ",
+            "width": 500
+        }
+    ],
+    "meta": {
+        "is_end": true,
+        "pageable_count": 12,
+        "total_count": 12
+    }
+}

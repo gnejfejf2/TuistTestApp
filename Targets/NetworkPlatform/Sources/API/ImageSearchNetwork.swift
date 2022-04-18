@@ -17,14 +17,14 @@ public protocol ImageSearchNetworkInterface {
 }
 
 public final class ImageSearchNetwork : ImageSearchNetworkInterface {
-    private let network : Network<ImageSearchResponseModel>
+    private let network : NetworkProtocol
 
-    init(network: Network<ImageSearchResponseModel>) {
+    init(network: NetworkProtocol) {
         self.network = network
     }
 
     public func fetchImageSearchResponse(parameters : ImageSearchRequestModel) -> Observable<ImageSearchResponseModel> {
-        return network.getItem("/v2/search/image" , parameters: parameters.toDictionary)
+        return network.getItem(ImageSearchResponseModel.self , "/v2/search/image" , parameters: parameters.toDictionary)
     }
 
 }

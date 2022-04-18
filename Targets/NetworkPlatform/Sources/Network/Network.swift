@@ -12,7 +12,16 @@ import Domain
 import RxAlamofire
 import RxSwift
 
-public final class Network<T: Decodable> {
+protocol NetworkProtocol {
+   
+    func getItem<T : Decodable>(_ type : T.Type , _ path: String , parameters : [String: Any]) -> Observable<T>
+    func postItem<T : Decodable>(_ type : T.Type , _ path: String, parameters: [String: Any]) -> Observable<T>
+    func updateItem<T : Decodable>(_ type : T.Type , _ path: String, itemId: String, parameters: [String: Any]) -> Observable<T>
+    func deleteItem<T : Decodable>(_ type : T.Type , _ path: String, itemId: String) -> Observable<T>
+}
+
+public final class Network : NetworkProtocol  {
+    
     
     private let endPoint: String
     private let header : HTTPHeaders
@@ -27,7 +36,7 @@ public final class Network<T: Decodable> {
     }
     
     
-    func getItem(_ path: String , parameters : [String: Any] = [:]) -> Observable<T> {
+    func getItem<T : Decodable>(_ type : T.Type , _ path: String , parameters : [String: Any] = [:]) -> Observable<T> {
         let absolutePath = "\(endPoint)\(path)"
          return RxAlamofire
             .data(.get, absolutePath , parameters: parameters , encoding: URLEncoding.queryString, headers: header)
@@ -38,7 +47,7 @@ public final class Network<T: Decodable> {
             })
     }
     
-    func postItem(_ path: String, parameters: [String: Any]) -> Observable<T> {
+    func postItem<T : Decodable>(_ type : T.Type , _ path: String, parameters: [String: Any]) -> Observable<T> {
         let absolutePath = "\(endPoint)/\(path)"
         return RxAlamofire
             .request(.post, absolutePath, parameters: parameters)
@@ -50,7 +59,7 @@ public final class Network<T: Decodable> {
             })
     }
     
-    func updateItem(_ path: String, itemId: String, parameters: [String: Any]) -> Observable<T> {
+    func updateItem<T : Decodable>(_ type : T.Type , _ path: String, itemId: String, parameters: [String: Any]) -> Observable<T> {
         let absolutePath = "\(endPoint)/\(path)/\(itemId)"
         return RxAlamofire
             .request(.put, absolutePath, parameters: parameters)
@@ -62,7 +71,7 @@ public final class Network<T: Decodable> {
             })
     }
     
-    func deleteItem(_ path: String, itemId: String) -> Observable<T> {
+    func deleteItem<T : Decodable>(_ type : T.Type , _ path: String, itemId: String) -> Observable<T> {
         let absolutePath = "\(endPoint)/\(path)/\(itemId)"
         return RxAlamofire
             .request(.delete, absolutePath)
@@ -74,3 +83,4 @@ public final class Network<T: Decodable> {
             })
     }
 }
+

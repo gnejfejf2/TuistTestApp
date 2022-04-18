@@ -26,10 +26,12 @@ public final class NetworkProvider : NetworkProviderInterface {
         "Authorization" : "KakaoAK bc4f662e41a4ba56baa598f8c22efdcd"
     ]
     
+    public init(){
+        
+    }
     
-
     public func makeImageSearchNetwork() -> ImageSearchNetworkInterface {
-        let network = Network<ImageSearchResponseModel>(apiEndpoint, header)
+        let network = Network(apiEndpoint, header)
         return ImageSearchNetwork(network: network)
     }
 

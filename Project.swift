@@ -20,14 +20,14 @@ let project = Project(
     ]),
     targets: [
         Target(
-            name: "TuistTestApp",
+            name: "TuistApp",
             platform: .iOS,
             product: .app,
-            bundleId: "com.jyk.TuistTestApp",
+            bundleId: "com.jyk.TuistApp",
             deploymentTarget : .iOS(targetVersion: "13.0.0", devices: .iphone),
             infoPlist: .extendingDefault(with: infoPlist),
-            sources: ["Targets/TuistTestApp/Sources/**"],
-            resources: ["Targets/TuistTestApp/Resources/**"],
+            sources: ["Targets/TuistApp/Sources/**"],
+            resources: ["Targets/TuistApp/Resources/**"],
             dependencies: [
                 .external(name: "RxSwift"),
                 .external(name: "RxDataSources"),
@@ -36,25 +36,27 @@ let project = Project(
                 .external(name: "SnapKit"),
                 .external(name: "Then"),
                 .external(name: "Swinject"),
-//                .external(name: "Moya"),
-//                .external(name: "RxMoya"),
-                .target(name: "NetworkPlatform")
+                    .target(name: "NetworkPlatform")
             ]
         ),
-        Target(name: "TuistTestAppTests",
-               platform: .iOS,
-               product: .unitTests,
-               bundleId: "com.jyk.TuistTestAppTests",
-               deploymentTarget : .iOS(targetVersion: "13.0.0", devices: .iphone),
-               infoPlist: .default,
-               sources: ["Targets/TuistTest/Sources/**"],
-               dependencies: [
-                //                     // 유닛 테스트의 의존성은 Framework, Library 또는 App으로 설정해야 함.
-                .target(name: "TuistTestApp"),
+        Target(
+            name: "TuistAppTests",
+            platform: .iOS,
+            product: .unitTests,
+            bundleId: "com.jyk.TuistAppTests",
+            deploymentTarget : .iOS(targetVersion: "13.0.0", devices: .iphone),
+            infoPlist: .default,
+            sources: ["Targets/TuistAppTests/Sources/**"],
+            dependencies: [
+                .target(name: "TuistApp"),
+                .target(name: "Domain"),
+                .target(name: "NetworkPlatform"),
+                .target(name: "NetworkPlatformTests"),
                 .external(name: "RxSwift"),
-                .external(name: "RxTest"),
-               ]),
-       
+                .external(name: "RxTest")
+            ]
+        ),
+        
         Target(
             name: "NetworkPlatform",
             platform: .iOS,
@@ -64,12 +66,23 @@ let project = Project(
             infoPlist : .default,
             sources: ["Targets/NetworkPlatform/Sources/**"],
             dependencies: [
-                .external(name: "Moya"),
-                .external(name: "RxMoya"),
-                .external(name: "RxAlamofire"),
+                 .external(name: "RxAlamofire"),
                 .external(name: "RxSwift"),
-                .external(name: "Alamofire"),
                 .target(name: "Domain")
+            ]
+        ),
+        Target(
+            name: "NetworkPlatformTests",
+            platform: .iOS,
+            product: .unitTests,
+            bundleId: "com.jyk.NetworkPlatformTests",
+            deploymentTarget : .iOS(targetVersion: "13.0.0", devices: .iphone),
+            infoPlist: .default,
+            sources: ["Targets/NetworkPlatformTests/Sources/**"],
+            resources : ["Targets/NetworkPlatformTests/Resources/**"],
+            dependencies: [
+                 .target(name: "NetworkPlatform"),
+                 .external(name: "RxBlocking")
             ]
         ),
         Target(
@@ -85,18 +98,18 @@ let project = Project(
                 .external(name: "RxDataSources")
             ]
         ),
-//        ,
-//        Target(name: "NetworkServiceTests",
-//               platform: .iOS,
-//               product: .unitTests,
-//               bundleId: "com.jyk.NetworkServiceTests",
-//               deploymentTarget : .iOS(targetVersion: "13.0.0", devices: .iphone),
-//               infoPlist: .default,
-//               sources: ["Targets/TuistTest/Sources/**"],
-//               dependencies: [
-//                //                     // 유닛 테스트의 의존성은 Framework, Library 또는 App으로 설정해야 함.
-//                .target(name: "NetworkService")
-//               ])
+        Target(
+            name: "DomainTests",
+            platform: .iOS,
+            product: .unitTests,
+            bundleId: "com.jyk.DomainTests",
+            deploymentTarget : .iOS(targetVersion: "13.0.0", devices: .iphone),
+            infoPlist: .default,
+            sources: ["Targets/DomainTests/Sources/**"],
+            dependencies: [
+                 .target(name: "Domain")
+            ]
+        ),
         
         
     ],
