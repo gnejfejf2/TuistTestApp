@@ -12,12 +12,12 @@ public typealias ImageSearchModels = [ImageSearchModel]
 
 public struct ImageSearchModel: Codable , Equatable   {
     
-    let collection, datetime, displaySitename: String
-    let docURL: String
-    let height: Int
+    public let collection, datetime, displaySitename: String
+    public let docURL: String
+    public let height: Int
     public let imageURL: String
     public let thumbnailURL: String
-    let width: Int
+    public let width: Int
 
     enum CodingKeys: String, CodingKey {
         case collection, datetime

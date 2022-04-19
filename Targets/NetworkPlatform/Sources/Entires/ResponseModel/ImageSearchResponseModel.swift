@@ -10,8 +10,8 @@ import Domain
 
 
 public struct ImageSearchResponseModel : Decodable{
-    let documents : ImageSearchModels
-    let meta: PagingAbleModel
+    public let documents : ImageSearchModels
+    public let meta: PagingAbleModel
     
 }
 

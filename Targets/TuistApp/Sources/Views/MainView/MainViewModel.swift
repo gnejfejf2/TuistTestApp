@@ -66,23 +66,43 @@ class MainViewModel : ViewModelBuilderProtocol {
         
         
         
+        
+        
+        
         imageSearchSectionModel
             .withLatestFrom(mainViewSectionModels) { ($0 , $1) }
-            .subscribe { (sectionModel , sectionModels)  in
-                mainViewSectionModels.onNext(sectionModels.sectionItemEdit(items: sectionModel, index: 0))
-            }
+            .map{ $0.1.sectionItemEdit(items: $0.0, index: 0) }
+            .subscribe (mainViewSectionModels)
             .disposed(by: disposeBag)
         
         
-        input.searchAction
+        imageSearchSectionModel
+            .subscribe(onNext: { [weak self] sectionModel in
+                guard let self = self else { return }
+                self.pagingCountSetting(totalCount: sectionModel.items.count)
+            })
+            .disposed(by: disposeBag)
+
+        imageSearchSectionModel
+            .withLatestFrom(meta) { ($0 , $1) }
+            .map{ [weak self] (sectionModel , meta) in
+                guard let self = self else { return false }
+                return self.pagingAbleChecking(paingAble: meta, totalCount: sectionModel.items.count)
+            }
+            .asDriverOnErrorNever()
+            .drive(scrollPagingCall)
+            .disposed(by: disposeBag)
+        
+        Observable.of(input.searchAction , input.sortTypeAction.map{ _ in "" } )
+            .merge()
+            .asDriverOnErrorNever()
             .drive{  [weak self] _ in
                 guard let self = self else { return }
                 self.pagingCountClear()
             }
             .disposed(by: disposeBag)
         
-        
-        //코드 A
+       
         let searchAction = input.searchAction
             .asObservable()
             .flatMap { [weak self] keyword -> Observable<(ImageSearchModels , PagingAbleModel)> in
@@ -95,44 +115,8 @@ class MainViewModel : ViewModelBuilderProtocol {
                     }
             }
             .share()
-        
-        searchAction
-            .asDriverOnErrorNever()
-            .map{ _ in return () }
-            .drive(searchClear)
-            .disposed(by: disposeBag)
-        
-        Observable.of(
-            searchAction
-                .asDriverOnErrorNever()
-                .map{ _ in return SortType.accuracy } , input.sortTypeAction)
-        .merge()
-        .asDriverOnErrorNever()
-        .drive(sortType)
-        .disposed(by: disposeBag)
-        
-        searchAction
-            .asDriverOnErrorNever()
-            .map{ _ in return SortType.accuracy }
-            .drive(sortType)
-            .disposed(by: disposeBag)
-        
-        searchAction
-            .asDriverOnErrorNever()
-            .map{ $0.1 }
-            .drive(meta)
-            .disposed(by: disposeBag)
-        
-        searchAction
-            .asDriverOnErrorNever()
-            .map{ $0.0.sectionModelMake(sectionName: "첫번째") }
-            .drive(imageSearchSectionModel)
-            .disposed(by: disposeBag)
-        
-        
-        
-        //
-        input.bottomScrollTriger
+    
+        let infinityScroll = input.bottomScrollTriger
             .asObservable()
             .withLatestFrom(scrollPagingCall) { $1 }
             .filter{ $0 }
@@ -146,6 +130,58 @@ class MainViewModel : ViewModelBuilderProtocol {
                         return .never()
                     }
             }
+            .share()
+        
+        let sortTypeAction = input.sortTypeAction
+            .asObservable()
+            .withLatestFrom(input.searchAction) { ($1 , $0) }
+            .flatMap{ [weak self] keyword , sortType  -> Observable<(ImageSearchModels , PagingAbleModel)> in
+                
+                guard let self = self else { return .never() }
+                return self.imageSearchUseCase.imageSearch(query: keyword, sortType: sortType, page: self.pagingCount, size: self.itemCount)
+                    .asObservable()
+                    .trackActivity(self.activityIndicator)
+                    .trackError(self.errorTracker)
+                    .catch{ error in
+                        return .never()
+                    }
+            }
+            .share()
+        
+       
+        Observable.of(searchAction , sortTypeAction)
+            .merge()
+            .asDriverOnErrorNever()
+            .map{ _ in return () }
+            .drive(searchClear)
+            .disposed(by: disposeBag)
+        
+       
+        
+        Observable.of( searchAction.map{ _ in return SortType.accuracy } , input.sortTypeAction.asObservable())
+            .merge()
+            .asDriverOnErrorNever()
+            .drive(sortType)
+            .disposed(by: disposeBag)
+        
+
+        Observable.of(searchAction , sortTypeAction , infinityScroll)
+            .merge()
+            .map{ $0.1 }
+            .asDriverOnErrorNever()
+            .drive(meta)
+            .disposed(by: disposeBag)
+        
+        
+        
+        searchAction
+            .asDriverOnErrorNever()
+            .map{ $0.0.sectionModelMake(sectionName: .first) }
+            .drive(imageSearchSectionModel)
+            .disposed(by: disposeBag)
+        
+       
+        infinityScroll
             .withLatestFrom(mainViewSectionModels) { ($0 , $1) }
             .asDriverOnErrorNever()
             .map{ (response , lastSearachModels) -> ImageSearchSectionModel?  in
@@ -156,50 +192,21 @@ class MainViewModel : ViewModelBuilderProtocol {
             .drive(imageSearchSectionModel)
             .disposed(by: disposeBag)
         
+        sortTypeAction
+            .map{ $0.0.sectionModelMake(sectionName: .first) }
+            .asDriverOnErrorNever()
+            .drive(imageSearchSectionModel)
+            .disposed(by: disposeBag)
         
-        
+      
+    
         input.cellClick
             .asObservable()
             .bind { [weak self] imageModel in
                 guard let self = self else { return }
                 self.builder.coordinator.openDetailView(imageModel)
             }.disposed(by: disposeBag)
-        //
-        mainViewSectionModels
-            .asObservable()
-            .withLatestFrom(meta) { ($0 , $1) }
-            .map { [weak self] data in
-                guard let self = self else { return false }
-                return self.pagingAbleChecking(paingAble: data.1, totalCount:  data.0.first!.items.count)
-            }
-            .subscribe(scrollPagingCall)
-            .disposed(by: disposeBag)
-        //
-        input.sortTypeAction
-            .asObservable()
-            .withLatestFrom(input.searchAction) { ($1 , $0) }
-            .flatMap{ [weak self] keyword , sortType  -> Observable<(ImageSearchModels , PagingAbleModel)> in
-                guard let self = self else { return .never() }
-                return self.imageSearchUseCase.imageSearch(query: keyword, sortType: sortType, page: self.pagingCount, size: self.itemCount)
-                    .asObservable()
-                    .trackActivity(self.activityIndicator)
-                    .trackError(self.errorTracker)
-                    .catch{ error in
-                        return .never()
-                    }
-            }
-            .withLatestFrom(mainViewSectionModels) { ($0 , $1) }
-            .asDriverOnErrorNever()
-            .drive(onNext: { response , lastSearachModels in
-                let searchModels = response.0
-                let metaModel = response.1
-                searchClear.onNext(())
-                meta.onNext(metaModel)
-                var lastItem = lastSearachModels
-                lastItem[0].items = searchModels
-                mainViewSectionModels.onNext(lastItem)
-            })
-            .disposed(by: disposeBag)
+ 
         
         return .init(
             imageSearchModels: mainViewSectionModels.asDriverOnErrorNever() ,

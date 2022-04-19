@@ -47,11 +47,11 @@ let project = Project(
             deploymentTarget : .iOS(targetVersion: "13.0.0", devices: .iphone),
             infoPlist: .default,
             sources: ["Targets/TuistAppTests/Sources/**"],
+            resources : ["Targets/TuistAppTests/Resources/**"],
             dependencies: [
                 .target(name: "TuistApp"),
                 .target(name: "Domain"),
                 .target(name: "NetworkPlatform"),
-                .target(name: "NetworkPlatformTests"),
                 .external(name: "RxSwift"),
                 .external(name: "RxTest")
             ]
@@ -79,7 +79,6 @@ let project = Project(
             deploymentTarget : .iOS(targetVersion: "13.0.0", devices: .iphone),
             infoPlist: .default,
             sources: ["Targets/NetworkPlatformTests/Sources/**"],
-            resources : ["Targets/NetworkPlatformTests/Resources/**"],
             dependencies: [
                  .target(name: "NetworkPlatform"),
                  .external(name: "RxBlocking")

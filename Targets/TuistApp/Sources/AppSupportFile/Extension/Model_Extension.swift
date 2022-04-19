@@ -11,8 +11,16 @@ import RxDataSources
 import Domain
 
 extension ImageSearchModels {
-    func sectionModelMake(sectionName : String) -> ImageSearchSectionModel {
-        return ImageSearchSectionModel(name: sectionName, items: self)
+    enum SectionName : String{
+        case first = "첫번째"
+        
+    }
+    
+    
+    
+    func sectionModelMake(sectionName : SectionName) -> ImageSearchSectionModel {
+        print(ImageSearchSectionModel(name: sectionName.rawValue, items: self))
+        return ImageSearchSectionModel(name: sectionName.rawValue, items: self)
     }
 }
 
