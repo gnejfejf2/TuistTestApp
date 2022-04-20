@@ -18,6 +18,9 @@ extension StubResponsebProtocol{
 
     func stubbedResponse<T : Decodable>(T : T.Type , _ filename: String) throws -> T {
         do {
+//            let t = type(of: self)
+//            let bundle = Bundle(for: t.self)
+            
             let bundlePath = Bundle(identifier: "com.jyk.TuistAppTests")?.path(forResource: "Json", ofType: "bundle")
             guard let bundlePath = bundlePath else { throw StubError.bundlePathNil }
     

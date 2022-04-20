@@ -8,7 +8,15 @@ let infoPlist: [String: InfoPlist.Value] = [
     "UILaunchStoryboardName": "LaunchScreen",
     "NSAppTransportSecurity" : ["NSAllowsArbitraryLoads":true],
     "UISupportedInterfaceOrientations" : ["UIInterfaceOrientationPortrait"],
-    "UIUserInterfaceStyle":"Light"
+    "UIUserInterfaceStyle":"Light",
+    "UIApplicationSceneManifest" : ["UIApplicationSupportsMultipleScenes":true,
+                                    "UISceneConfigurations":[
+                                        "UIWindowSceneSessionRoleApplication":[[
+                                            "UISceneConfigurationName":"Default Configuration",
+                                            "UISceneDelegateClassName":"$(PRODUCT_MODULE_NAME).SceneDelegate"
+                                        ]]
+                                    ]
+                                   ]
 ]
 
 let project = Project(
@@ -36,7 +44,7 @@ let project = Project(
                 .external(name: "SnapKit"),
                 .external(name: "Then"),
                 .external(name: "Swinject"),
-                    .target(name: "NetworkPlatform")
+                .target(name: "NetworkPlatform")
             ]
         ),
         Target(
@@ -66,7 +74,7 @@ let project = Project(
             infoPlist : .default,
             sources: ["Targets/NetworkPlatform/Sources/**"],
             dependencies: [
-                 .external(name: "RxAlamofire"),
+                .external(name: "RxAlamofire"),
                 .external(name: "RxSwift"),
                 .target(name: "Domain")
             ]
@@ -80,8 +88,8 @@ let project = Project(
             infoPlist: .default,
             sources: ["Targets/NetworkPlatformTests/Sources/**"],
             dependencies: [
-                 .target(name: "NetworkPlatform"),
-                 .external(name: "RxBlocking")
+                .target(name: "NetworkPlatform"),
+                .external(name: "RxBlocking")
             ]
         ),
         Target(
@@ -106,7 +114,7 @@ let project = Project(
             infoPlist: .default,
             sources: ["Targets/DomainTests/Sources/**"],
             dependencies: [
-                 .target(name: "Domain")
+                .target(name: "Domain")
             ]
         ),
         

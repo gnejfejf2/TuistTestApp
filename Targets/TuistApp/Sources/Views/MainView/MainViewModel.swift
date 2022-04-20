@@ -189,8 +189,13 @@ class MainViewModel : ViewModelBuilderProtocol {
                 return searchSection.itemsAdd(models: response.0)
             }
             .compactMap{ $0 }
-            .drive(imageSearchSectionModel)
-            .disposed(by: disposeBag)
+            .asObservable()
+        
+//            .asObservable()
+            .sectionAdd(mainViewSectionModels)
+//            .sectionAdd(mainViewSectionModels)
+//            .drive(imageSearchSectionModel)
+//            .disposed(by: disposeBag)
         
         sortTypeAction
             .map{ $0.0.sectionModelMake(sectionName: .first) }

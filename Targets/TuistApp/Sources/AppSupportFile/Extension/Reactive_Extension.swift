@@ -1,5 +1,6 @@
 import RxSwift
 import RxCocoa
+import Domain
 import UIKit
 public extension Reactive where Base: UIScrollView {
    
@@ -28,5 +29,20 @@ extension ObservableType {
     }
 }
 
+extension ObservableType where Element == ImageSearchSectionModel {
+    
+    func addItem(_ transform: @escaping (Element) throws -> ImageSearchSectionModel?) -> Observable<ImageSearchSectionModel>{
+        return self.asObservable()
+                    
+    }
+    
+    func sectionAdd<firstO: ObservableConvertibleType>(_ transformA : firstO){
+//        (response , lastSearachModels) -> ImageSearchSectionModel?  in
+//            guard let searchSection = lastSearachModels.first else { return nil }
+//
+//            return searchSection.itemsAdd(models: response.0)
+    }
+    
+}
 
 
