@@ -6,7 +6,6 @@
 //
 
 import RxDataSources
-import Foundation
 import Domain
 
 struct ImageSearchSectionModel {
@@ -49,3 +48,4 @@ extension ImageSearchSectionModels {
     }
     
 }
+

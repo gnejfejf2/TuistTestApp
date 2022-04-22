@@ -19,7 +19,6 @@ extension ImageSearchModels {
     
     
     func sectionModelMake(sectionName : SectionName) -> ImageSearchSectionModel {
-        print(ImageSearchSectionModel(name: sectionName.rawValue, items: self))
         return ImageSearchSectionModel(name: sectionName.rawValue, items: self)
     }
 }

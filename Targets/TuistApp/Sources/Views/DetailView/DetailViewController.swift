@@ -29,7 +29,7 @@ class DetailViewController : SuperViewControllerSetting<DetailViewModel>{
         }
     }
     
-    var imageInformationText = BasePaddingLabelView().then {
+    var imageInformationText = BasePaddingLabel().then {
         $0.textColor = .white.withAlphaComponent(0.75)
         $0.backgroundColor = .darkGray1.withAlphaComponent(0.75)
         $0.numberOfLines = 0

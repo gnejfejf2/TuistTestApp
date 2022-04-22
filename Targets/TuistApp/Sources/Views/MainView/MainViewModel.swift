@@ -13,7 +13,7 @@ import RxDataSources
 import Domain
 import NetworkPlatform
 
-class MainViewModel : ViewModelBuilderProtocol {
+class MainViewModel : ViewModelBuilderProtocol , ScrollPagingProtocl{
     
     
     
@@ -136,7 +136,6 @@ class MainViewModel : ViewModelBuilderProtocol {
             .asObservable()
             .withLatestFrom(input.searchAction) { ($1 , $0) }
             .flatMap{ [weak self] keyword , sortType  -> Observable<(ImageSearchModels , PagingAbleModel)> in
-                
                 guard let self = self else { return .never() }
                 return self.imageSearchUseCase.imageSearch(query: keyword, sortType: sortType, page: self.pagingCount, size: self.itemCount)
                     .asObservable()
@@ -182,20 +181,10 @@ class MainViewModel : ViewModelBuilderProtocol {
         
        
         infinityScroll
-            .withLatestFrom(mainViewSectionModels) { ($0 , $1) }
-            .asDriverOnErrorNever()
-            .map{ (response , lastSearachModels) -> ImageSearchSectionModel?  in
-                guard let searchSection = lastSearachModels.first else { return nil }
-                return searchSection.itemsAdd(models: response.0)
-            }
-            .compactMap{ $0 }
-            .asObservable()
-        
-//            .asObservable()
-            .sectionAdd(mainViewSectionModels)
-//            .sectionAdd(mainViewSectionModels)
-//            .drive(imageSearchSectionModel)
-//            .disposed(by: disposeBag)
+            .map{ $0.0 }
+            .addSearchSectionItem(item: imageSearchSectionModel)
+            .drive(imageSearchSectionModel)
+            .disposed(by: disposeBag)
         
         sortTypeAction
             .map{ $0.0.sectionModelMake(sectionName: .first) }
@@ -223,10 +212,7 @@ class MainViewModel : ViewModelBuilderProtocol {
     }
 }
 
-extension MainViewModel :  ScrollPagingProtocl{
-    
-    
-    
-}
+
+
 
 

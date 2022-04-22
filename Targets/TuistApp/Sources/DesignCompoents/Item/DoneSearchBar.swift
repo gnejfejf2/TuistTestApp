@@ -10,9 +10,6 @@ import UIKit
 
 
 class DoneSearchBar : UISearchBar , ComponentSettingProtocol{
-    
-//    var doneAction : FunctionCloure? = nil
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         uiSetting()
@@ -35,7 +32,6 @@ class DoneSearchBar : UISearchBar , ComponentSettingProtocol{
     }
     
     @objc func doneButtonAction(){
-//        doneAction?()
         resignFirstResponder()
     }
 }

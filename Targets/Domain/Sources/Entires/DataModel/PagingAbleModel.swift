@@ -1,9 +1,4 @@
-//
-//  PagingAbleModel.swift
-//  BrandiApp
-//
-//  Created by 강지윤 on 2022/03/17.
-//
+
 
 // MARK: - Meta
 public struct PagingAbleModel: Codable {

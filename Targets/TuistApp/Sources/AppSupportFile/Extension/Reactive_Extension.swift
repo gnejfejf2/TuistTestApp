@@ -28,21 +28,15 @@ extension ObservableType {
         }
     }
 }
-
-extension ObservableType where Element == ImageSearchSectionModel {
-    
-    func addItem(_ transform: @escaping (Element) throws -> ImageSearchSectionModel?) -> Observable<ImageSearchSectionModel>{
-        return self.asObservable()
-                    
+extension ObservableType where Element == ImageSearchModels {
+    ///섹션에있는 아이템에 값을 더해준후 Driver로 방출
+    func addSearchSectionItem(item : Observable<ImageSearchSectionModel>) -> Driver<ImageSearchSectionModel>{
+        return  self.withLatestFrom(item) { ($0 , $1) }
+            .map{ (response , lastSearachModels) -> ImageSearchSectionModel  in
+                return lastSearachModels.itemsAdd(models: response)
+            }
+            .asDriverOnErrorNever()
     }
-    
-    func sectionAdd<firstO: ObservableConvertibleType>(_ transformA : firstO){
-//        (response , lastSearachModels) -> ImageSearchSectionModel?  in
-//            guard let searchSection = lastSearachModels.first else { return nil }
-//
-//            return searchSection.itemsAdd(models: response.0)
-    }
-    
 }
 
 
