@@ -19,17 +19,12 @@ class AppCoordinator : AppCoodinatorProtocol {
     }
     
     func start() {
+    
         window.makeKeyAndVisible()
         navigationController.setNavigationBarHidden(true, animated: false)
         window.rootViewController = navigationController
-        
         let coordinator = Assembler.shared.resolver.resolve(MainViewCoordinator.self , argument : navigationController)!
-        
-//
-//        appMainCoordinator = Assembler.shared.resolver.resolve(AppCoordinator.self, argument: window)
-        
         coordinator.start()
-        
         
     }
     

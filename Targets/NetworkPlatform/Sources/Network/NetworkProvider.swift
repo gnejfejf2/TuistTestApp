@@ -23,7 +23,7 @@ public final class NetworkProvider : NetworkProviderInterface {
     private let apiEndpoint : String = "https://dapi.kakao.com"
     private let header : HTTPHeaders = [
         "accept": "application/json" ,
-        "Authorization" : "KakaoAK bc4f662e41a4ba56baa598f8c22efdcd"
+        "Authorization" : "개인키"
     ]
     
     public init(){
