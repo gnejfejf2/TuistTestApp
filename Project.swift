@@ -101,8 +101,7 @@ let project = Project(
             infoPlist : .default,
             sources: ["Targets/Domain/Sources/**"],
             dependencies: [
-                .external(name: "RxSwift"),
-                .external(name: "RxDataSources")
+                
             ]
         ),
         Target(
